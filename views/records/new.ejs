@@ -1,0 +1,27 @@
+<h3>This is new page!</h3>
+
+<form action="/records" method="POST">
+    <div>
+        <label for="price">Price (¥): </label>
+        <input type="text" id="price" name="record[price]" required>
+    </div>
+    <div>
+        <label for="payer">Payer: </label>
+        <input type="text" id="payer" name="record[payer]" required>
+    </div>
+    <div>
+        <label for="date">Date: </label>
+        <input type="date" id="date" name="record[date]" required>
+    </div>
+    <div>
+        <label for="description">Description: </label>
+        <input type="text" id="description" name="record[description]" required>
+    </div>
+    <div>
+        <label for="category">Category: </label>
+        <input type="text" id="category" name="record[category]" required>
+    </div>
+    <div>
+        <button class="btn btn-success">Create new Income</button>
+    </div>
+</form>
