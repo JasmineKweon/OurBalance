@@ -16,7 +16,7 @@
         <label for="payer">Payer: </label>
         <select name="record[payer]" id="payer">
             <% for(let user of users) {%>
-                <option value="<%=user%>" <%= currentUser.username === user.username ? 'selected': '' %>><%=user.username%></option>
+                <option value="<%=user_id%>" <%= currentUser.username === user.username ? 'selected': '' %>><%=user.username%></option>
             <% } %>
         </select>
     </div>
@@ -31,7 +31,7 @@
     <div>
         <% for(let category of categories) {%>
             <div>
-                <input type="radio" id="<%=category.name%>" name="record[category]" value="<%=category%>">
+                <input type="radio" id="<%=category.name%>" name="record[category]" value="<%=category._id%>">
                 <label for="<%=category.name%>"><%=category.name%></label>
             </div>
             <% } %>
