@@ -1,19 +1,17 @@
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
+//(npm i passport-local-mongoose)
+//https://www.npmjs.com/package/passport-local-mongoose
 
-// const UserSchema = new Schema({
-//     email: {
-//         type: String,
-//         required: true
-//     },
-//     username: {
-//         type: String,
-//         required: true
-//     },
-//     password: {
-//         type: String,
-//         required: true
-//     }
-// })
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
 
-// module.exports = mongoose.model('User', UserSchema);
+const UserSchema = new Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+})
+
+UserSchema.plugin(passportLocalMongoose)
+module.exports = mongoose.model('User', UserSchema);
