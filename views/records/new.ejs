@@ -1,4 +1,11 @@
-<h3>This is new page!</h3>
+<h3>New Page</h3>
+<a href="/" class="btn">Home</a>
+<a href="/records/calendar" class="btn">Calendar</a>
+<a href="/records/analytics" class="btn">Analytics</a>
+<a href="/records/new/spending" class="btn">Add New</a>
+
+<a href="/records/new/spending" class="btn">New Spending</a>
+<a href="/records/new/income" class="btn">New Income</a>
 
 <form action="/records" method="POST">
     <div>
@@ -7,21 +14,30 @@
     </div>
     <div>
         <label for="payer">Payer: </label>
-        <input type="text" id="payer" name="record[payer]" required>
+        <select name="record[payer]" id="payer">
+            <% for(let user of users) {%>
+                <option value="<%=user%>" <%= currentUser.username === user.username ? 'selected': '' %>><%=user.username%></option>
+            <% } %>
+        </select>
     </div>
     <div>
         <label for="date">Date: </label>
-        <input type="date" id="date" name="record[date]" required>
+        <input type="date" id="date" name="record[date]" value="<%= moment(new Date()).format('yyyy-MM-DD')%>" required>
     </div>
     <div>
-        <label for="description">Description: </label>
+        <label for=" description">Description: </label>
         <input type="text" id="description" name="record[description]" required>
     </div>
     <div>
-        <label for="category">Category: </label>
-        <input type="text" id="category" name="record[category]" required>
+        <% for(let category of categories) {%>
+            <div>
+                <input type="radio" id="<%=category.name%>" name="record[category]" value="<%=category%>">
+                <label for="<%=category.name%>"><%=category.name%></label>
+            </div>
+            <% } %>
     </div>
     <div>
-        <button class="btn btn-success">Create new Income</button>
+        <button class="btn btn-success ">Create new Income</button>
     </div>
 </form>
+<a href="/records/calendar " class="btn ">Calendar</a>

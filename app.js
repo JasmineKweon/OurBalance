@@ -26,6 +26,9 @@ const User = require('./models/user');
 //In order to receive urlencoded as req.body
 app.use(express.urlencoded({ extended: true }));
 
+//(npm i moment)
+const moment = require('moment');
+
 //Session (npm i express-session)
 const session = require('express-session');
 const sessionConfig = {
@@ -55,6 +58,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 // use static serialize and deserialize of model for passport session support
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    res.locals.moment = moment;
+    next();
+})
 
 app.use("/records", recordRoutes);
 app.use("/", userRoutes);

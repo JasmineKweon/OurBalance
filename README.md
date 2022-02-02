@@ -1,5 +1,8 @@
 # OurBalance
  Household Account Book
 
-# Using: 
+Using: 
 
+
+
+<input type="text" id="payer" name="record[payer]" value="<% if(currentUser){%> <%=currentUser.username%> <%}%>" required>

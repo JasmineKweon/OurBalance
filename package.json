@@ -20,6 +20,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.2",
     "express-session": "^1.17.2",
+    "moment": "^2.29.1",
     "mongoose": "^6.1.9",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
