@@ -16,7 +16,7 @@
         <label for="payer">Payer: </label>
         <select name="record[payer]" id="payer">
             <% for(let user of users) {%>
-                <option value="<%=user_id%>" <%= currentUser.username === user.username ? 'selected': '' %>><%=user.username%></option>
+                <option value="<%=user._id%>" <%= currentUser.username === user.username ? 'selected': '' %>><%=user.username%></option>
             <% } %>
         </select>
     </div>

@@ -7,7 +7,8 @@ const RecordSchema = new Schema({
         required: true
     },
     payer: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     date: {
@@ -19,9 +20,19 @@ const RecordSchema = new Schema({
         required: true
     },
     category: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
         required: true
-    }
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    }]
 })
 
 module.exports = mongoose.model('Record', RecordSchema);

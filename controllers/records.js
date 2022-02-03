@@ -2,6 +2,10 @@ const Record = require('../models/record');
 const User = require('../models/user');
 const Category = require('../models/category');
 
+module.exports.renderCalendar = async(req, res) => {
+    res.render('records/calendar');
+}
+
 module.exports.renderNewSpendingForm = async(req, res) => {
     const users = await User.find({})
     const categories = await Category.find({ type: 'Spending' })
@@ -16,6 +20,10 @@ module.exports.renderNewIncomeForm = async(req, res) => {
 
 module.exports.createRecord = async(req, res) => {
     const record = new Record(req.body.record);
+    console.log("----------------------");
+    console.log(record);
+    console.log("----------------------");
+    record.author = req.user._id;
     await record.save();
-    res.redirect(`/records/new/spending`);
+    res.redirect(`records/calendar`);
 }
