@@ -20,9 +20,6 @@ module.exports.renderNewIncomeForm = async(req, res) => {
 
 module.exports.createRecord = async(req, res) => {
     const record = new Record(req.body.record);
-    console.log("----------------------");
-    console.log(record);
-    console.log("----------------------");
     record.author = req.user._id;
     await record.save();
     res.redirect(`records/calendar`);

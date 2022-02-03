@@ -17,6 +17,9 @@ app.set('view engine', 'ejs');
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
 
+//public folder as accessible from other files
+app.use(express.static(path.join(__dirname, 'public')));
+
 //Define Routes
 const recordRoutes = require('./routes/records');
 const userRoutes = require('./routes/users');

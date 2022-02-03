@@ -1,5 +1,64 @@
-<h3>Calendar (Index) page!</h3>
-<a href="/" class="btn">Home</a>
-<a href="/records/calendar" class="btn">Calendar</a>
-<a href="/records/analytics" class="btn">Analytics</a>
-<a href="/records/new/spending" class="btn">Add New</a>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Balance</title>
+    <link rel="stylesheet" href="/stylesheets/calendar.css">
+</head>
+
+<body>
+    <a href="/" class="btn">Home</a>
+    <a href="/records/calendar" class="btn">Calendar</a>
+    <a href="/records/analytics" class="btn">Analytics</a>
+    <a href="/records/new/spending" class="btn">Add New</a>
+    <br>
+
+    <div class="calendar">
+        <div class="header">
+            <div class="year-month"></div>
+            <div class="nav">
+                <button class="nav-btn go-prev" onclick="prevMonth()">&lt;</button>
+                <button class="nav-btn go-today" onclick="goToday()">today</button>
+                <button class="nav-btn go-next" onclick="nextMonth()">&gt;</button>
+            </div>
+        </div>
+        <div class="main">
+            <div class="days">
+                <div class="day">Sun</div>
+                <div class="day">Mon</div>
+                <div class="day">Tue</div>
+                <div class="day">Wed</div>
+                <div class="day">Thur</div>
+                <div class="day">Fri</div>
+                <div class="day">Sat</div>
+            </div>
+            <div class="dates">
+
+            </div>
+        </div>
+        <div class="footer">
+
+        </div>
+    </div>
+
+    <div class="summary">
+        <div class="monthly-summary">
+
+        </div>
+        <div class="total-summary">
+
+        </div>
+        <div class="payment-statement">
+
+        </div>
+        <div class="debt-statement">
+
+        </div>
+    </div>
+    <script src="/javascripts/calendar.js"></script>
+</body>
+
+</html>
