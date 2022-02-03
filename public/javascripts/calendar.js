@@ -42,7 +42,7 @@ const renderCalendar = () => {
     document.querySelector('.dates').innerHTML = dates.join('');
 };
 
-renderCalendar();
+//renderCalendar();
 
 const prevMonth = () => {
     date.setMonth(date.getMonth() - 1);
