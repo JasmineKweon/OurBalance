@@ -16,8 +16,6 @@
     <a href="/records/calendar" class="btn">Calendar</a>
     <a href="/records/analytics" class="btn">Analytics</a>
     <a href="/records/new/spending" class="btn">Add New</a>
-    <br>
-
     <!-- Calendar-->
     <div class="calendar">
         <div class="header">
@@ -70,7 +68,12 @@
                                                     </a>
                                                 </div>
                                                 <div class="col-md-3 ms-auto">
-                                                    <h5><span class="spending">¥<%=record.price%></span></h5>
+                                                    <% if ((record.category.type) === "income") { %>
+                                                        <h5><span class="income">+ ¥<%=record.price%></span></h5>
+                                                        +¥
+                                                        <%} else {%>
+                                                            <h5><span class="spending">- ¥<%=record.price%></span></h5>
+                                                            <%}%>
                                                 </div>
                                             </div>
                                             <h6>Payer:

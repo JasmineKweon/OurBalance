@@ -87,8 +87,7 @@ body {
     opacity: 0.3;
 }
 
-
-/* .spending {
+.spending {
     color: #d13e3e;
 }
 
@@ -96,6 +95,8 @@ body {
     color: #396ee2;
 }
 
+
+/* 
 .money {
     text-align: center;
     font-size: 15px;
