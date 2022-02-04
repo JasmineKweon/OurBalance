@@ -41,8 +41,17 @@
                     <div class="date">
                         <button id="submit" type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#indexModal<%=date.index%>"><%=date.date.getDate()%></button>
                         <div class="money">
-                            <span class="income">+<%=date.totalIncome%></span>
-                            <span class="spending">-<%=date.totalSpending%></span>
+                            <% if (date.totalIncome != null && date.totalIncome !== 0) { %>
+                                <span class="income">+ ¥<%=date.totalIncome%></span>
+                                <% } else { %>
+                                    <span class="income">&nbsp;</span>
+                                    <% } %>
+                                        <br>
+                                        <% if (date.totalSpending != null && date.totalSpending !== 0) { %>
+                                            <span class="spending">- ¥<%=date.totalSpending%></span>
+                                            <% } else { %>
+                                                <span class="spending">&nbsp;</span>
+                                                <% } %>
                         </div>
                     </div>
                     <!--Modal-->
@@ -68,9 +77,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="col-md-3 ms-auto">
-                                                    <% if ((record.category.type) === "income") { %>
+                                                    <% if ((record.category.type) === "Income") { %>
                                                         <h5><span class="income">+ ¥<%=record.price%></span></h5>
-                                                        +¥
                                                         <%} else {%>
                                                             <h5><span class="spending">- ¥<%=record.price%></span></h5>
                                                             <%}%>
