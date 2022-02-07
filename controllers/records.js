@@ -53,7 +53,7 @@ module.exports.renderCalendar = async(req, res) => {
         const today = new Date();
         year = today.getFullYear();
         month = today.getMonth() + 1;
-        res.redirect(`/records/calendar?year=${year}&month=${month}`)
+        return res.redirect(`/records/calendar?year=${year}&month=${month}`)
     }
     monthlySpending = 0;
     monthlyIncome = 0;
