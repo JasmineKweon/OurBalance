@@ -1,0 +1,27 @@
+.categories {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.category {
+    width: 220px;
+}
+
+@media (max-width: 1200px) {
+    .category {
+        width: 270px;
+    }
+}
+
+@media (max-width: 990px) {
+    .category {
+        width: 200px;
+    }
+}
+
+@media (max-width: 750px) {
+    .category {
+        width: 300px;
+    }
+}

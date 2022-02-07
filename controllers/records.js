@@ -47,36 +47,77 @@ async function renderDatesData(year, month) {
 }
 
 module.exports.renderCalendar = async(req, res) => {
-    monthlySpending = 0;
-    monthlyIncome = 0;
-    const year = parseInt(req.query.year);
-    const month = parseInt(req.query.month);
-    const dates = await renderDatesData(year, month);
-    res.render('records/calendar', { dates, monthlySpending, monthlyIncome });
-}
-
-module.exports.renderIndex = async(req, res) => {
+    let year;
+    let month;
     if ((req.query.year === undefined) || (req.query.month === undefined)) {
-        res.redirect(`/records/index?year=2021&month=12`)
+        const today = new Date();
+        year = today.getFullYear();
+        month = today.getMonth() + 1;
+        res.redirect(`/records/calendar?year=${year}&month=${month}`)
     }
     monthlySpending = 0;
     monthlyIncome = 0;
-    const year = parseInt(req.query.year);
-    const month = parseInt(req.query.month);
+    year = parseInt(req.query.year);
+    month = parseInt(req.query.month);
+    console.log(year);
+    console.log(month);
+    if (month === 0) {
+        year = year - 1;
+        month = 12;
+    } else if (month === 13) {
+        year = year + 1;
+        month = 1;
+    }
     const dates = await renderDatesData(year, month);
-    res.render('records/index', { dates, monthlySpending, monthlyIncome });
+    res.render('records/calendar', { dates, monthlySpending, monthlyIncome, year, month });
+}
+
+module.exports.renderIndex = async(req, res) => {
+    let year;
+    let month;
+    if ((req.query.year === undefined) || (req.query.month === undefined)) {
+        const today = new Date();
+        year = today.getFullYear();
+        month = today.getMonth() + 1;
+        res.redirect(`/records/index?year=${year}&month=${month}`)
+    }
+    monthlySpending = 0;
+    monthlyIncome = 0;
+    year = parseInt(req.query.year);
+    month = parseInt(req.query.month);
+    console.log(year);
+    console.log(month);
+    if (month === 0) {
+        year = year - 1;
+        month = 12;
+    } else if (month === 13) {
+        year = year + 1;
+        month = 1;
+    }
+    const dates = await renderDatesData(year, month);
+    res.render('records/index', { dates, monthlySpending, monthlyIncome, year, month });
+}
+
+module.exports.showRecord = async(req, res) => {
+    const record = await Record.findById(req.params.id).populate('category').populate({
+        path: 'payer',
+        select: 'username'
+    })
+    res.render('records/show', { record });
 }
 
 module.exports.renderNewSpendingForm = async(req, res) => {
     const users = await User.find({});
-    const categories = await Category.find({ type: 'Spending' })
-    res.render('records/new', { users, categories });
+    const categories = await Category.find({ type: 'Spending' });
+    const type = 'Spending';
+    res.render('records/new', { users, categories, type });
 }
 
 module.exports.renderNewIncomeForm = async(req, res) => {
     const users = await User.find({});
-    const categories = await Category.find({ type: 'Income' })
-    res.render('records/new', { users, categories });
+    const categories = await Category.find({ type: 'Income' });
+    const type = 'Income';
+    res.render('records/new', { users, categories, type });
 }
 
 module.exports.createRecord = async(req, res) => {

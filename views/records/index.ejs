@@ -21,7 +21,7 @@
                 <div class="navbar-nav me-auto">
                     <a class="nav-link" href="/records/index">Index</a>
                     <a class="nav-link" href="/records/calendar">Calendar</a>
-                    <a class="nav-link" href="/records/analytics">Analytics</a>
+                    <a class="nav-link" href="/records/show">Analytics</a>
                     <a class="nav-link" href="/records/new/spending">Add New</a>
                 </div>
                 <div class="navbar-nav ms-auto">
@@ -38,11 +38,14 @@
             <div class="calendar col-6">
                 <div class="mt-4">
                     <div class="header">
-                        <div class="year-month">2021/12</div>
+                        <div class="year-month">
+                            <%=year%>/
+                                <%=month%>
+                        </div>
                         <div class="nav">
-                            <button class="nav-btn go-prev">&lt;</button>
-                            <button class="nav-btn go-today">today</button>
-                            <button class="nav-btn go-next">&gt;</button>
+                            <a href="/records/index?year=<%=year%>&month=<%=month-1%>" class="btn nav-btn go-next">&lt;</a>
+                            <a href="/records/index?year=<%=new Date().getFullYear()%>&month=<%=new Date().getMonth() + 1%>" class="btn nav-btn go-today">Today</a>
+                            <a href="/records/index?year=<%=year%>&month=<%=month+1%>" class="btn nav-btn go-next">&gt;</a>
                         </div>
                     </div>
                     <div class="main mb-5">
@@ -57,7 +60,7 @@
                         </div>
                         <div class="dates">
                             <%for(date of dates){%>
-                                <div class="date">
+                                <div class="date <%= month !== date.date.getMonth() + 1 ? 'other': '' %>">
                                     <button id="submit" type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#indexModal<%=date.index%>"><%=date.date.getDate()%></button>
                                     <div class="money">
                                         <% if (date.totalIncome != null && date.totalIncome !== 0) { %>
@@ -89,7 +92,7 @@
                                                     <div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <a href="/records/show" class="tooltip-test" title="Tooltip">
+                                                                <a href="/records/<%=record._id %>" class="tooltip-test" title="Tooltip">
                                                                     <h5>
                                                                         <%=record.description%>
                                                                     </h5>
