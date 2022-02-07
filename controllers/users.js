@@ -16,7 +16,7 @@ module.exports.register = async(req, res) => {
         req.login(registeredUser, err => {
             if (err) return next(err);
             //req.flash('success', 'Welcome to YelpCamp');
-            res.redirect('/records/new/spending');
+            res.redirect('/records/calendar');
         })
     } catch (e) {
         //req.flash("error", e.message);
@@ -29,7 +29,7 @@ module.exports.login = (req, res) => {
     //const redirectUrl = req.session.returnTo || '/campgrounds';
     //delete req.session.returnTo; //need to delete after assign redirectUrl
     //res.redirect(redirectUrl);
-    res.redirect('records/new/spending');
+    res.redirect('/records/calendar');
 }
 
 module.exports.logout = (req, res) => {

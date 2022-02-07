@@ -19,10 +19,9 @@
     </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav me-auto">
-                    <a class="nav-link" href="/records/index">Index</a>
                     <a class="nav-link" href="/records/calendar">Calendar</a>
                     <a class="nav-link" href="/records/show">Analytics</a>
-                    <a class="nav-link" href="/records/new/spending">Add New</a>
+                    <a class="nav-link" href="/records/new/Spending">Add New</a>
                 </div>
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link" href="/login">Login</a>
@@ -67,7 +66,7 @@
                         </p>
                     </li>
                     <li class="list-group-item text-end">
-                        <a href="/records/edit" class="card-link btn btn-warning">Edit</a>
+                        <a href="/records/<%=record._id%>/edit" class="card-link btn btn-warning">Edit</a>
                         <form class="d-inline" method="POST">
                             <button class="card-link btn btn-danger">DELETE</button>
                         </form>

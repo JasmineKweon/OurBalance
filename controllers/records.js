@@ -59,8 +59,6 @@ module.exports.renderCalendar = async(req, res) => {
     monthlyIncome = 0;
     year = parseInt(req.query.year);
     month = parseInt(req.query.month);
-    console.log(year);
-    console.log(month);
     if (month === 0) {
         year = year - 1;
         month = 12;
@@ -72,31 +70,29 @@ module.exports.renderCalendar = async(req, res) => {
     res.render('records/calendar', { dates, monthlySpending, monthlyIncome, year, month });
 }
 
-module.exports.renderIndex = async(req, res) => {
-    let year;
-    let month;
-    if ((req.query.year === undefined) || (req.query.month === undefined)) {
-        const today = new Date();
-        year = today.getFullYear();
-        month = today.getMonth() + 1;
-        res.redirect(`/records/index?year=${year}&month=${month}`)
-    }
-    monthlySpending = 0;
-    monthlyIncome = 0;
-    year = parseInt(req.query.year);
-    month = parseInt(req.query.month);
-    console.log(year);
-    console.log(month);
-    if (month === 0) {
-        year = year - 1;
-        month = 12;
-    } else if (month === 13) {
-        year = year + 1;
-        month = 1;
-    }
-    const dates = await renderDatesData(year, month);
-    res.render('records/index', { dates, monthlySpending, monthlyIncome, year, month });
-}
+// module.exports.renderIndex = async(req, res) => {
+//     let year;
+//     let month;
+//     if ((req.query.year === undefined) || (req.query.month === undefined)) {
+//         const today = new Date();
+//         year = today.getFullYear();
+//         month = today.getMonth() + 1;
+//         res.redirect(`/records/index?year=${year}&month=${month}`)
+//     }
+//     monthlySpending = 0;
+//     monthlyIncome = 0;
+//     year = parseInt(req.query.year);
+//     month = parseInt(req.query.month);
+//     if (month === 0) {
+//         year = year - 1;
+//         month = 12;
+//     } else if (month === 13) {
+//         year = year + 1;
+//         month = 1;
+//     }
+//     const dates = await renderDatesData(year, month);
+//     res.render('records/index', { dates, monthlySpending, monthlyIncome, year, month });
+// }
 
 module.exports.showRecord = async(req, res) => {
     const record = await Record.findById(req.params.id).populate('category').populate({
@@ -106,23 +102,36 @@ module.exports.showRecord = async(req, res) => {
     res.render('records/show', { record });
 }
 
-module.exports.renderNewSpendingForm = async(req, res) => {
+module.exports.renderNewForm = async(req, res) => {
     const users = await User.find({});
-    const categories = await Category.find({ type: 'Spending' });
-    const type = 'Spending';
-    res.render('records/new', { users, categories, type });
-}
-
-module.exports.renderNewIncomeForm = async(req, res) => {
-    const users = await User.find({});
-    const categories = await Category.find({ type: 'Income' });
-    const type = 'Income';
-    res.render('records/new', { users, categories, type });
+    const type = req.params.type;
+    const categories = await Category.find({ type: type });
+    let date = moment(new Date()).format('yyyy-MM-DD');
+    if (req.query.date !== undefined) {
+        date = req.query.date;
+    }
+    res.render('records/new', { users, categories, type, date });
 }
 
 module.exports.createRecord = async(req, res) => {
     const record = new Record(req.body.record);
     record.author = req.user._id;
     await record.save();
-    res.redirect(`/records/new/spending`);
+    res.redirect(`/records/calendar`);
+}
+
+module.exports.renderEditForm = async(req, res) => {
+    const users = await User.find({});
+    const record = await Record.findById(req.params.id).populate('category').populate({
+        path: 'payer',
+        select: 'username'
+    })
+    const categories = await Category.find({ type: record.category.type });
+    res.render('records/edit', { users, categories, record });
+}
+
+module.exports.updateRecord = async(req, res) => {
+    const { id } = req.params;
+    const record = await Record.findByIdAndUpdate(id, {...req.body.record });
+    res.redirect(`/records/${record._id}`)
 }

@@ -19,10 +19,9 @@
     </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav me-auto">
-                    <a class="nav-link" href="/records/index">Index</a>
                     <a class="nav-link" href="/records/calendar">Calendar</a>
                     <a class="nav-link" href="/records/show">Analytics</a>
-                    <a class="nav-link" href="/records/new/spending">Add New</a>
+                    <a class="nav-link" href="/records/new/Spending">Add New</a>
                 </div>
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link" href="/login">Login</a>
@@ -118,7 +117,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-                                                <a href="/records/new/spending" class="btn btn-primary">Add New</a>
+                                                <a href="/records/new/Spending?date=<%= moment(date.date).format('yyyy-MM-DD')%>" class="btn btn-primary">Add New</a>
                                             </div>
                                         </div>
                                     </div>
@@ -127,8 +126,8 @@
                         </div>
                     </div>
                     <div class="footer">
-                        <a href="/records/new/spending" class="btn btn-success">Add New</a>
-                        <a href="/records/new/spending" class="btn btn-primary">See Analytics</a>
+                        <a href="/records/new/Spending" class="btn btn-success">Add New</a>
+                        <a href="/records/new/Spending" class="btn btn-primary">See Analytics</a>
                     </div>
                 </div>
             </div>

@@ -32,6 +32,12 @@ app.use(express.urlencoded({ extended: true }));
 //(npm i moment)
 const moment = require('moment');
 
+//In order to use GET/POST method as PUT/DELETE,etc methods
+//Need to npm i method-override on terminal to use
+const methodOverride = require('method-override');
+//_method should match with _method on ejs file, doesn't have to be _method
+app.use(methodOverride('_method'));
+
 //Session (npm i express-session)
 const session = require('express-session');
 const sessionConfig = {
