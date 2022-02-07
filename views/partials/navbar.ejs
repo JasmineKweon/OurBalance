@@ -7,13 +7,15 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav me-auto">
                 <a class="nav-link" href="/records/calendar">Calendar</a>
-                <a class="nav-link" href="/records/show">Analytics</a>
                 <a class="nav-link" href="/records/new/Spending">Add New</a>
             </div>
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/login">Login</a>
-                <a class="nav-link" href="/register">Register</a>
-                <!-- <a class="nav-link" href="/">Logout</a> -->
+                <% if(!currentUser){ %>
+                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/register">Register</a>
+                    <% } else {%>
+                        <a class="nav-link" href="/logout">Logout</a>
+                        <% } %>
             </div>
         </div>
     </div>

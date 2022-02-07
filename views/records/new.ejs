@@ -5,10 +5,10 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link <%= type === 'Spending' ? 'active': '' %>" aria-current="true" href="/records/new/Spending">Spending</a>
+                        <a class="nav-link <%= type === 'Spending' ? 'active': '' %>" aria-current="true" href="/records/new/Spending?date=<%=date%>">Spending</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <%= type === 'Income' ? 'active': '' %>" aria-current="true" href="/records/new/Income">Income</a>
+                        <a class="nav-link <%= type === 'Income' ? 'active': '' %>" aria-current="true" href="/records/new/Income?date=<%=date%>">Income</a>
                     </li>
                 </ul>
             </div>

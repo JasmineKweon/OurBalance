@@ -27,7 +27,7 @@ async function renderDatesData(year, month) {
         })
         let sumSpending;
         let sumIncome;
-        if (foundRecords.length > 0) {
+        if (foundRecords.length > 0 && currentDate.getMonth() + 1 === month) {
             sumSpending = sumPrice(foundRecords.filter(record => { return record.category.type === 'Spending' }));
             sumIncome = sumPrice(foundRecords.filter(record => { return record.category.type === 'Income' }));
             monthlySpending += sumSpending;
@@ -53,6 +53,7 @@ module.exports.renderCalendar = async(req, res) => {
         const today = new Date();
         year = today.getFullYear();
         month = today.getMonth() + 1;
+        if (res.locals.successMsg != null) req.flash('success', res.locals.successMsg);
         return res.redirect(`/records/calendar?year=${year}&month=${month}`)
     }
     monthlySpending = 0;
@@ -93,6 +94,7 @@ module.exports.createRecord = async(req, res) => {
     const record = new Record(req.body.record);
     record.author = req.user._id;
     await record.save();
+    req.flash('success', 'Successfully created new record!');
     res.redirect(`/records/calendar`);
 }
 
@@ -109,5 +111,6 @@ module.exports.renderEditForm = async(req, res) => {
 module.exports.updateRecord = async(req, res) => {
     const { id } = req.params;
     const record = await Record.findByIdAndUpdate(id, {...req.body.record });
+    req.flash('success', 'Successfully updated the record!');
     res.redirect(`/records/${record._id}`)
 }

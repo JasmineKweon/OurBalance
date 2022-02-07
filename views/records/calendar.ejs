@@ -3,19 +3,19 @@
     <div class="row justify-content-evenly">
         <!-- Calendar-->
         <div class="calendar col-6">
-            <div class="mt-4">
+            <div class="mb-4">
                 <div class="header">
                     <div class="year-month">
                         <%=year%>/
                             <%=month%>
                     </div>
                     <div class="nav">
-                        <a href="/records/index?year=<%=year%>&month=<%=month-1%>" class="btn nav-btn go-next">&lt;</a>
-                        <a href="/records/index?year=<%=new Date().getFullYear()%>&month=<%=new Date().getMonth() + 1%>" class="btn nav-btn go-today">Today</a>
-                        <a href="/records/index?year=<%=year%>&month=<%=month+1%>" class="btn nav-btn go-next">&gt;</a>
+                        <a href="/records/calendar?year=<%=year%>&month=<%=month-1%>" class="btn nav-btn go-next">&lt;</a>
+                        <a href="/records/calendar?year=<%=new Date().getFullYear()%>&month=<%=new Date().getMonth() + 1%>" class="btn nav-btn go-today">Today</a>
+                        <a href="/records/calendar?year=<%=year%>&month=<%=month+1%>" class="btn nav-btn go-next">&gt;</a>
                     </div>
                 </div>
-                <div class="main mb-5">
+                <div class="main mb-4">
                     <div class="days">
                         <div class="day">Sun</div>
                         <div class="day">Mon</div>
@@ -31,16 +31,11 @@
                                 <button id="submit" type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#indexModal<%=date.index%>"><%=date.date.getDate()%></button>
                                 <div class="money">
                                     <% if (date.totalIncome != null && date.totalIncome !== 0) { %>
-                                        <span class="income">+ ¥<%=date.totalIncome%></span>
-                                        <% } else { %>
-                                            <span class="income">&nbsp;</span>
-                                            <% } %>
-                                                <br>
-                                                <% if (date.totalSpending != null && date.totalSpending !== 0) { %>
-                                                    <span class="spending">- ¥<%=date.totalSpending%></span>
-                                                    <% } else { %>
-                                                        <span class="spending">&nbsp;</span>
-                                                        <% } %>
+                                        <span class="income">+ ¥<%=date.totalIncome%></span><br>
+                                        <% } %>
+                                            <% if (date.totalSpending != null && date.totalSpending !== 0) { %>
+                                                <span class="spending">- ¥<%=date.totalSpending%></span>
+                                                <% } %>
                                 </div>
                             </div>
                             <!--Modal-->
@@ -58,18 +53,18 @@
                                             <%for(record of date.records){%>
                                                 <div>
                                                     <div class="row">
-                                                        <div class="col-md-4">
+                                                        <div class="col-7">
                                                             <a href="/records/<%=record._id %>" class="tooltip-test" title="Tooltip">
                                                                 <h5>
                                                                     <%=record.description%>
                                                                 </h5>
                                                             </a>
                                                         </div>
-                                                        <div class="col-md-3 ms-auto">
+                                                        <div class="col-5">
                                                             <% if ((record.category.type) === "Income") { %>
-                                                                <h5><span class="income">+ ¥<%=record.price%></span></h5>
+                                                                <h5><span class="income float-end">+ ¥<%=record.price%></span></h5>
                                                                 <%} else {%>
-                                                                    <h5><span class="spending">- ¥<%=record.price%></span></h5>
+                                                                    <h5><span class="spending float-end">- ¥<%=record.price%></span></h5>
                                                                     <%}%>
                                                         </div>
                                                     </div>

@@ -29,6 +29,7 @@
     text-align: right;
     border-bottom: 1px solid #333333;
     border-left: 1px solid #333333;
+    height: 100px;
 }
 
 .day:nth-child(7n + 1) {

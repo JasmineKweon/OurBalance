@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
-
 const passport = require('passport');
 const users = require("../controllers/users");
 
-router.get('/register', users.renderRegisterForm);
-router.get('/login', users.renderLoginrForm);
+router.route('/register')
+    .get(users.renderRegisterForm)
+    .post(users.register)
 
-router.post('/register', users.register);
-router.post('/login', passport.authenticate('local', { failureRedirect: '/home' }), users.login);
+router.route('/login')
+    .get(users.renderLoginrForm)
+    .post(passport.authenticate('local', { failureRedirect: '/home' }), users.login)
+
+router.get('/logout', users.logout);
 
 module.exports = router;
