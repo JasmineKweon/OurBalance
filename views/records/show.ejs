@@ -36,7 +36,7 @@
                     </li>
                     <li class="list-group-item text-end">
                         <a href="/records/<%=record._id%>/edit" class="card-link btn btn-warning">Edit</a>
-                        <form class="d-inline" method="POST">
+                        <form class="d-inline" action="/records/<%=record._id%>?_method=DELETE" method="POST">
                             <button class="card-link btn btn-danger">DELETE</button>
                         </form>
                     </li>

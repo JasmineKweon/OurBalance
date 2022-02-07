@@ -11,6 +11,7 @@ router.get('/new/:type', isLoggedIn, records.renderNewForm);
 router.route('/:id')
     .get(isLoggedIn, records.showRecord)
     .put(isLoggedIn, isRelatedPerson, records.updateRecord)
+    .delete(isLoggedIn, isRelatedPerson, records.deleteRecord)
 
 router.get('/:id/edit', isLoggedIn, isRelatedPerson, records.renderEditForm);
 

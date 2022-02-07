@@ -114,3 +114,11 @@ module.exports.updateRecord = async(req, res) => {
     req.flash('success', 'Successfully updated the record!');
     res.redirect(`/records/${record._id}`)
 }
+
+module.exports.deleteRecord = async(req, res) => {
+    const { id } = req.params;
+    await Record.findByIdAndDelete(id);
+    //Flash appears only when you want, if you declare flash here, then it will appear on redirected page.
+    req.flash('success', 'Successfully deleted the record!');
+    res.redirect('/records/calendar');
+}
