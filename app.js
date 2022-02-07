@@ -13,6 +13,10 @@ async function main() {
 //Define view engine (npm i ejs)
 app.set('view engine', 'ejs');
 
+//ejsmate for layout, partial, block template functions
+const ejsMate = require('ejs-mate')
+app.engine('ejs', ejsMate)
+
 //Define view folder
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));

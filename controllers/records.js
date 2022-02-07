@@ -70,30 +70,6 @@ module.exports.renderCalendar = async(req, res) => {
     res.render('records/calendar', { dates, monthlySpending, monthlyIncome, year, month });
 }
 
-// module.exports.renderIndex = async(req, res) => {
-//     let year;
-//     let month;
-//     if ((req.query.year === undefined) || (req.query.month === undefined)) {
-//         const today = new Date();
-//         year = today.getFullYear();
-//         month = today.getMonth() + 1;
-//         res.redirect(`/records/index?year=${year}&month=${month}`)
-//     }
-//     monthlySpending = 0;
-//     monthlyIncome = 0;
-//     year = parseInt(req.query.year);
-//     month = parseInt(req.query.month);
-//     if (month === 0) {
-//         year = year - 1;
-//         month = 12;
-//     } else if (month === 13) {
-//         year = year + 1;
-//         month = 1;
-//     }
-//     const dates = await renderDatesData(year, month);
-//     res.render('records/index', { dates, monthlySpending, monthlyIncome, year, month });
-// }
-
 module.exports.showRecord = async(req, res) => {
     const record = await Record.findById(req.params.id).populate('category').populate({
         path: 'payer',

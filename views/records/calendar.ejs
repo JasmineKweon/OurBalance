@@ -1,222 +1,180 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Balance</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/stylesheets/calendar.css">
-</head>
-
-<body class="d-flex flex-column vh-100">
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Our Balance</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav me-auto">
-                    <a class="nav-link" href="/records/calendar">Calendar</a>
-                    <a class="nav-link" href="/records/show">Analytics</a>
-                    <a class="nav-link" href="/records/new/Spending">Add New</a>
-                </div>
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link" href="/login">Login</a>
-                    <a class="nav-link" href="/register">Register</a>
-                    <!-- <a class="nav-link" href="/">Logout</a> -->
-                </div>
-            </div>
-        </div>
-    </nav>
-    <main class="container mt-5">
-        <div class="row justify-content-evenly">
-            <!-- Calendar-->
-            <div class="calendar col-6">
-                <div class="mt-4">
-                    <div class="header">
-                        <div class="year-month">
-                            <%=year%>/
-                                <%=month%>
-                        </div>
-                        <div class="nav">
-                            <a href="/records/index?year=<%=year%>&month=<%=month-1%>" class="btn nav-btn go-next">&lt;</a>
-                            <a href="/records/index?year=<%=new Date().getFullYear()%>&month=<%=new Date().getMonth() + 1%>" class="btn nav-btn go-today">Today</a>
-                            <a href="/records/index?year=<%=year%>&month=<%=month+1%>" class="btn nav-btn go-next">&gt;</a>
-                        </div>
+<link rel="stylesheet" href="/stylesheets/calendar.css">
+<% layout('layouts/boilerplate')%>
+    <div class="row justify-content-evenly">
+        <!-- Calendar-->
+        <div class="calendar col-6">
+            <div class="mt-4">
+                <div class="header">
+                    <div class="year-month">
+                        <%=year%>/
+                            <%=month%>
                     </div>
-                    <div class="main mb-5">
-                        <div class="days">
-                            <div class="day">Sun</div>
-                            <div class="day">Mon</div>
-                            <div class="day">Tue</div>
-                            <div class="day">Wed</div>
-                            <div class="day">Thur</div>
-                            <div class="day">Fri</div>
-                            <div class="day">Sat</div>
-                        </div>
-                        <div class="dates">
-                            <%for(date of dates){%>
-                                <div class="date <%= month !== date.date.getMonth() + 1 ? 'other': '' %>">
-                                    <button id="submit" type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#indexModal<%=date.index%>"><%=date.date.getDate()%></button>
-                                    <div class="money">
-                                        <% if (date.totalIncome != null && date.totalIncome !== 0) { %>
-                                            <span class="income">+ ¥<%=date.totalIncome%></span>
-                                            <% } else { %>
-                                                <span class="income">&nbsp;</span>
-                                                <% } %>
-                                                    <br>
-                                                    <% if (date.totalSpending != null && date.totalSpending !== 0) { %>
-                                                        <span class="spending">- ¥<%=date.totalSpending%></span>
-                                                        <% } else { %>
-                                                            <span class="spending">&nbsp;</span>
-                                                            <% } %>
-                                    </div>
-                                </div>
-                                <!--Modal-->
-                                <div class="modal fade" id="indexModal<%=date.index%>" tabindex="-1" aria-labelledby="indexModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="indexModalLabel">
-                                                    <%= moment(date.date).format('yyyy-MM-DD')%>
-                                                </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
+                    <div class="nav">
+                        <a href="/records/index?year=<%=year%>&month=<%=month-1%>" class="btn nav-btn go-next">&lt;</a>
+                        <a href="/records/index?year=<%=new Date().getFullYear()%>&month=<%=new Date().getMonth() + 1%>" class="btn nav-btn go-today">Today</a>
+                        <a href="/records/index?year=<%=year%>&month=<%=month+1%>" class="btn nav-btn go-next">&gt;</a>
+                    </div>
+                </div>
+                <div class="main mb-5">
+                    <div class="days">
+                        <div class="day">Sun</div>
+                        <div class="day">Mon</div>
+                        <div class="day">Tue</div>
+                        <div class="day">Wed</div>
+                        <div class="day">Thur</div>
+                        <div class="day">Fri</div>
+                        <div class="day">Sat</div>
+                    </div>
+                    <div class="dates">
+                        <%for(date of dates){%>
+                            <div class="date <%= month !== date.date.getMonth() + 1 ? 'other': '' %>">
+                                <button id="submit" type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#indexModal<%=date.index%>"><%=date.date.getDate()%></button>
+                                <div class="money">
+                                    <% if (date.totalIncome != null && date.totalIncome !== 0) { %>
+                                        <span class="income">+ ¥<%=date.totalIncome%></span>
+                                        <% } else { %>
+                                            <span class="income">&nbsp;</span>
+                                            <% } %>
                                                 <br>
-                                                <%for(record of date.records){%>
-                                                    <div>
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <a href="/records/<%=record._id %>" class="tooltip-test" title="Tooltip">
-                                                                    <h5>
-                                                                        <%=record.description%>
-                                                                    </h5>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-md-3 ms-auto">
-                                                                <% if ((record.category.type) === "Income") { %>
-                                                                    <h5><span class="income">+ ¥<%=record.price%></span></h5>
-                                                                    <%} else {%>
-                                                                        <h5><span class="spending">- ¥<%=record.price%></span></h5>
-                                                                        <%}%>
-                                                            </div>
+                                                <% if (date.totalSpending != null && date.totalSpending !== 0) { %>
+                                                    <span class="spending">- ¥<%=date.totalSpending%></span>
+                                                    <% } else { %>
+                                                        <span class="spending">&nbsp;</span>
+                                                        <% } %>
+                                </div>
+                            </div>
+                            <!--Modal-->
+                            <div class="modal fade" id="indexModal<%=date.index%>" tabindex="-1" aria-labelledby="indexModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="indexModalLabel">
+                                                <%= moment(date.date).format('yyyy-MM-DD')%>
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <br>
+                                            <%for(record of date.records){%>
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <a href="/records/<%=record._id %>" class="tooltip-test" title="Tooltip">
+                                                                <h5>
+                                                                    <%=record.description%>
+                                                                </h5>
+                                                            </a>
                                                         </div>
-                                                        <h6>Payer:
-                                                            <%=record.payer.username%>
-                                                        </h6>
-                                                        <h6>Category:
-                                                            <%=record.category.name%>
-                                                        </h6>
+                                                        <div class="col-md-3 ms-auto">
+                                                            <% if ((record.category.type) === "Income") { %>
+                                                                <h5><span class="income">+ ¥<%=record.price%></span></h5>
+                                                                <%} else {%>
+                                                                    <h5><span class="spending">- ¥<%=record.price%></span></h5>
+                                                                    <%}%>
+                                                        </div>
                                                     </div>
-                                                    <br>
-                                                    <%}%>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-                                                <a href="/records/new/Spending?date=<%= moment(date.date).format('yyyy-MM-DD')%>" class="btn btn-primary">Add New</a>
-                                            </div>
+                                                    <h6>Payer:
+                                                        <%=record.payer.username%>
+                                                    </h6>
+                                                    <h6>Category:
+                                                        <%=record.category.name%>
+                                                    </h6>
+                                                </div>
+                                                <br>
+                                                <%}%>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                            <a href="/records/new/Spending?date=<%= moment(date.date).format('yyyy-MM-DD')%>" class="btn btn-primary">Add New</a>
                                         </div>
                                     </div>
                                 </div>
-                                <%}%>
-                        </div>
-                    </div>
-                    <div class="footer">
-                        <a href="/records/new/Spending" class="btn btn-success">Add New</a>
-                        <a href="/records/new/Spending" class="btn btn-primary">See Analytics</a>
+                            </div>
+                            <%}%>
                     </div>
                 </div>
-            </div>
-            <!--Summary-->
-            <div class="summary col-4">
-                <div class="card mt-5 mb-5">
-                    <div class="card-header text-primary">
-                        Monthly Summary
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <h6 class="text-muted">
-                                <span>Monthly Income</span>
-                                <span class="income float-end">+¥<%= monthlyIncome %></span>
-                            </h6>
-                        </li>
-                        <li class="list-group-item">
-                            <h6 class="text-muted">
-                                <span>Monthly Spending</span>
-                                <span class="spending float-end">-¥<%= monthlySpending %></span>
-                            </h6>
-                        </li>
-                        <li class="list-group-item">
-                            <h6 class="text-muted">
-                                <span>Monthly Balance</span>
-                                <span class="float-end">¥<%= monthlyIncome - monthlySpending %></span>
-                            </h6>
-                        </li>
-                    </ul>
-                    <div class="card-header text-primary">
-                        Total Summary
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <h6 class="text-muted">
-                                <span>Total Income</span>
-                                <span class="income float-end">+¥15,250,000</span>
-                            </h6>
-                        </li>
-                        <li class="list-group-item">
-                            <h6 class="text-muted">
-                                <span>Total Spending</span>
-                                <span class="spending float-end">-¥15,250,000</span>
-                            </h6>
-                        </li>
-                        <li class="list-group-item">
-                            <h6 class="text-muted">
-                                <span>Total Balance</span>
-                                <span class="float-end">¥15,250,000</span>
-                            </h6>
-                        </li>
-                    </ul>
-                    <div class="card-header text-primary">
-                        How much you owe?
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <h6 class="text-muted">
-                                <span>Jasmine Spent:</span>
-                                <span class="float-end">¥15,250,000</span>
-                            </h6>
-                        </li>
-                        <li class="list-group-item">
-                            <h6 class="text-muted">
-                                <span>Aladdin Spent:</span>
-                                <span class="float-end">¥15,250,000</span>
-                            </h6>
-                        </li>
-                    </ul>
-                    <div class="card-header text-primary">
-                        How much you owe?
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <h7 class="float-end">
-                                <span>Jasmine has to payback ¥250,000 to Aladdin.</span>
-                            </h7>
-                        </li>
-                    </ul>
+                <div class="footer">
+                    <a href="/records/new/Spending" class="btn btn-success">Add New</a>
+                    <a href="/records/new/Spending" class="btn btn-primary">See Analytics</a>
                 </div>
             </div>
         </div>
-    </main>
-    <footer class="footer bg-dark py-3 mt-auto">
-        <div class="container">
-            <span class="text-muted">&copy; Our Balance</span>
+        <!--Summary-->
+        <div class="summary col-4">
+            <div class="card mt-5 mb-5">
+                <div class="card-header text-primary">
+                    Monthly Summary
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h6 class="text-muted">
+                            <span>Monthly Income</span>
+                            <span class="income float-end">+¥<%= monthlyIncome %></span>
+                        </h6>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="text-muted">
+                            <span>Monthly Spending</span>
+                            <span class="spending float-end">-¥<%= monthlySpending %></span>
+                        </h6>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="text-muted">
+                            <span>Monthly Balance</span>
+                            <span class="float-end">¥<%= monthlyIncome - monthlySpending %></span>
+                        </h6>
+                    </li>
+                </ul>
+                <div class="card-header text-primary">
+                    Total Summary
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h6 class="text-muted">
+                            <span>Total Income</span>
+                            <span class="income float-end">+¥15,250,000</span>
+                        </h6>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="text-muted">
+                            <span>Total Spending</span>
+                            <span class="spending float-end">-¥15,250,000</span>
+                        </h6>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="text-muted">
+                            <span>Total Balance</span>
+                            <span class="float-end">¥15,250,000</span>
+                        </h6>
+                    </li>
+                </ul>
+                <div class="card-header text-primary">
+                    How much you owe?
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h6 class="text-muted">
+                            <span>Jasmine Spent:</span>
+                            <span class="float-end">¥15,250,000</span>
+                        </h6>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="text-muted">
+                            <span>Aladdin Spent:</span>
+                            <span class="float-end">¥15,250,000</span>
+                        </h6>
+                    </li>
+                </ul>
+                <div class="card-header text-primary">
+                    How much you owe?
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h7 class="float-end">
+                            <span>Jasmine has to payback ¥250,000 to Aladdin.</span>
+                        </h7>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
-
-</html>
+    </div>
