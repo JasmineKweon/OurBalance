@@ -8,9 +8,12 @@ const path = require('path');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+
 const recordRoutes = require('./routes/records');
 const userRoutes = require('./routes/users');
 const User = require('./models/user');
+const AppError = require('./utils/AppError');
+const { STATUS_CODES } = require('http');
 
 const app = express();
 const port = 8000;
@@ -59,6 +62,16 @@ app.use("/", userRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');
+})
+
+app.all('*', (req, res, next) => {
+    next(new AppError('Page Not Found', 404))
+})
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = "Something went wrong"
+    res.status(statusCode).render('error', { err });
 })
 
 app.listen(port, () => {
