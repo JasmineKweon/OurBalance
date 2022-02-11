@@ -13,7 +13,6 @@ const recordRoutes = require('./routes/records');
 const userRoutes = require('./routes/users');
 const User = require('./models/user');
 const AppError = require('./utils/AppError');
-const { STATUS_CODES } = require('http');
 
 const app = express();
 const port = 8000;

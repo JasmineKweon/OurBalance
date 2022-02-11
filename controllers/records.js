@@ -47,7 +47,6 @@ async function renderDatesData(year, month) {
 }
 
 module.exports.renderCalendar = async(req, res) => {
-    console.log(res.locals.successMsg);
     let year;
     let month;
     if ((req.query.year === undefined) || (req.query.month === undefined)) {
