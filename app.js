@@ -11,6 +11,7 @@ const flash = require('connect-flash');
 
 const recordRoutes = require('./routes/records');
 const userRoutes = require('./routes/users');
+const commentRoutes = require('./routes/comments');
 const User = require('./models/user');
 const AppError = require('./utils/AppError');
 
@@ -56,8 +57,9 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use("/records", recordRoutes);
 app.use("/", userRoutes);
+app.use("/records", recordRoutes);
+app.use('/records/:id/comments', commentRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');

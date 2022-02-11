@@ -5,7 +5,12 @@ const commentSchema = new Schema({
     body: String,
     author: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
+    },
+    createdDateTime: {
+        type: Date,
+        required: true
     }
 });
 

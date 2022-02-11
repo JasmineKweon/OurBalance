@@ -34,16 +34,18 @@
                             <%=record.category.name%>
                         </p>
                     </li>
-                    <li class="list-group-item text-end">
-                        <a href="/records/<%=record._id%>/edit" class="card-link btn btn-warning">Edit</a>
-                        <form class="d-inline" action="/records/<%=record._id%>?_method=DELETE" method="POST">
-                            <button class="card-link btn btn-danger">DELETE</button>
-                        </form>
-                    </li>
+                    <% if (currentUser && (record.author._id.equals(currentUser._id) || record.payer._id.equals(currentUser._id))) { %>
+                        <li class="list-group-item text-end">
+                            <a href="/records/<%=record._id%>/edit" class="card-link btn btn-warning">Edit</a>
+                            <form class="d-inline" action="/records/<%=record._id%>?_method=DELETE" method="POST">
+                                <button class="card-link btn btn-danger">DELETE</button>
+                            </form>
+                        </li>
+                        <% } %>
                 </ul>
             </div>
             <div class="card-footer">
-                <form action="/" method="POST" class="mb-3" novalidate>
+                <form action="/records/<%=record._id%>/comments" method="POST" class="mb-3">
                     <div class="mb-3">
                         <label class="form-label" for="body">Leave a Comment</label>
                         <textarea class="form-control" name="comment[body]" id="body" cols="30" rows="2" required></textarea>
@@ -54,18 +56,19 @@
         </div>
         <div class="card border-light mb-3">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <span class="text-primary">Jasmine&nbsp;</span>I refunded this item
-                    <br><a href="#" class="btn btn-outline-secondary btn-sm float-end d-inline ">Delete</a><small class=" text-muted ">Last updated 19 mins ago</small>
-                </li>
-                <li class="list-group-item">
-                    <span class="text-primary">Aladdin&nbsp;</span>I bought it again
-                    <br><a href="#" class="btn btn-outline-secondary btn-sm float-end d-inline ">Delete</a><small class=" text-muted ">Last updated 13 mins ago</small>
-                </li>
-                <li class="list-group-item">
-                    <span class="text-primary">Jasmine&nbsp;</span>Okay Thanks
-                    <br><a href="#" class="btn btn-outline-secondary btn-sm float-end d-inline ">Delete</a><small class=" text-muted ">Last updated 3 mins ago</small>
-                </li>
+                <% for (comment of record.comments) { %>
+                    <li class="list-group-item">
+                        <span class="text-primary"><%=comment.author.username%>&nbsp;</span>
+                        <%=comment.body%>
+                            <br>
+                            <% if (currentUser && comment.author._id.equals(currentUser._id)) { %>
+                                <form action="/records/<%=record._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                    <button class="btn btn-outline-secondary btn-sm float-end d-inline">Delete</button>
+                                </form>
+                                <% } %>
+                                    <small class=" text-muted ">Created at <%=moment(comment.createdDateTime).format('yyyy/MM/DD HH:mm:ss')%></small>
+                    </li>
+                    <% } %>
             </ul>
         </div>
         <footer class="mb-3">

@@ -75,6 +75,12 @@ module.exports.showRecord = async(req, res) => {
     const record = await Record.findById(req.params.id).populate('category').populate({
         path: 'payer',
         select: 'username'
+    }).populate({
+        path: 'comments',
+        populate: {
+            path: 'author',
+            select: 'username'
+        }
     })
     res.render('records/show', { record });
 }
