@@ -1,0 +1,53 @@
+<% layout('layouts/boilerplateFolder')%>
+    <div class="folder-list">
+        <div class="header mb-5">
+            <h2>My Folders</h2>
+        </div>
+        <div class="main mb-5">
+            <div class="row">
+                <%for (folder of folders) {%>
+                    <div class="col-sm-4">
+                        <div class="card mb-5">
+                            <div class="card-header">
+                                <%=folder.name%>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Members: </h5>
+                                <p class="card-text">
+                                    <ul>
+                                        <li>
+                                            <h6 class="text-muted">
+                                                <span><%=folder.admin.username%> (admin)</span>
+                                            </h6>
+                                        </li>
+                                        <li>
+                                            <h6 class="text-muted">
+                                                <span>Aladdin</span>
+                                            </h6>
+                                        </li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Total Income:
+                                    <%=folder.totalIncome%>
+                                </li>
+                                <li class="list-group-item">Total Spending:
+                                    <%=folder.totalSpending%>
+                                </li>
+                                <li class="list-group-item">Total Balance:
+                                    <%=folder.totalIncome - folder.totalSpending%>
+                                </li>
+                            </ul>
+                            <div class="card-body text-end">
+                                <% if (currentUser && (folder.admin._id.equals(currentUser._id))) { %>
+                                    <a href="#" class="btn btn-secondary">Edit</a>
+                                    <%} %>
+                                        <a href="#" class="btn btn-dark">See Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <%} %>
+            </div>
+        </div>
+    </div>
