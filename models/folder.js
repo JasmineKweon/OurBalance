@@ -15,9 +15,9 @@ const FolderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
-    records: [{
+    invitedUser: [{
         type: Schema.Types.ObjectId,
-        ref: 'Record'
+        ref: 'User'
     }],
     totalIncome: {
         type: Number,

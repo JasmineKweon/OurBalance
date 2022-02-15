@@ -3,21 +3,18 @@ main().catch(err => console.log(err));
 async function main() {
     await mongoose.connect('mongodb://localhost:27017/money-record');
 }
-
-const Category = require('../models/category');
 const Record = require('../models/record');
-const User = require('../models/user');
-
-const categories = require('./categories');
-const records = require('./records');
-const users = require('./users');
-
+const Comment = require('../models/comment');
+const Folder = require('../models/folder');
 
 const seedRecords = async() => {
     await Record.deleteMany({});
-    for (r of records) {
-        await new Record(r).save();
-    }
+    await Comment.deleteMany({});
+    await Folder.deleteMany({});
+
+    // for (r of records) {
+    //     await new Record(r).save();
+    // }
 }
 
 // seedCategories().then(() => {

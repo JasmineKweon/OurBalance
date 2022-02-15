@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const RecordSchema = new Schema({
+    folder: {
+        type: Schema.Types.ObjectId,
+        ref: 'Folder',
+        required: true
+    },
     price: {
         type: Number,
         required: true
