@@ -60,8 +60,8 @@ app.use((req, res, next) => {
 
 app.use("/", userRoutes);
 app.use("/folders", folderRoutes);
-app.use("/records", recordRoutes);
-app.use('/records/:id/comments', commentRoutes);
+app.use("/folders/:folderId/records", recordRoutes);
+app.use('/folders/:folderId/records/:id/comments', commentRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');

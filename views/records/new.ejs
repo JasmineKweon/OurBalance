@@ -5,18 +5,18 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link <%= type === 'Spending' ? 'active': '' %>" aria-current="true" href="/records/new/Spending?date=<%=date%>">Spending</a>
+                        <a class="nav-link <%= type === 'Spending' ? 'active': '' %>" aria-current="true" href="/folders/<%=folder._id%>/records/new/Spending?date=<%=date%>">Spending</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <%= type === 'Income' ? 'active': '' %>" aria-current="true" href="/records/new/Income?date=<%=date%>">Income</a>
+                        <a class="nav-link <%= type === 'Income' ? 'active': '' %>" aria-current="true" href="/folders/<%=folder._id%>/records/new/Income?date=<%=date%>">Income</a>
                     </li>
                 </ul>
             </div>
             <div class="card-body">
                 <div class="card-text">
-                    <form action="/records" method="POST">
+                    <form action="/folders/<%=folderId%>/records" method="POST">
                         <div class="mb-3">
-                            <label class="form-label" for="price">Price </label>
+                            <label class="form-label" for="price">Price</label>
                             <div class="input-group">
                                 <span class="input-group-text">¥</span>
                                 <input type="text" class="form-control" id="price" name="record[price]" required>
@@ -54,6 +54,6 @@
             </div>
         </div>
         <footer class="mb-3">
-            <a href="/records/calendar">Go to Calendar</a>
+            <a href="/folders/<%=folder._id%>">Go to Calendar</a>
         </footer>
     </div>

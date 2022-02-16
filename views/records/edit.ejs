@@ -7,7 +7,7 @@
             </div>
             <div class="card-body">
                 <div class="card-text">
-                    <form action="/records/<%=record._id%>?_method=PUT" method="POST">
+                    <form action="/folders/<%=folder._id%>/records/<%=record._id%>?_method=PUT" method="POST">
                         <div class="mb-3">
                             <label class="form-label" for="price">Price </label>
                             <div class="input-group">
@@ -47,6 +47,6 @@
             </div>
         </div>
         <footer class="mb-3">
-            <a href="/records/calendar">Go to Calendar</a>
+            <a href="/folders/<%=folder._id%>">Go to Calendar</a>
         </footer>
     </div>

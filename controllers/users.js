@@ -16,7 +16,7 @@ module.exports.register = async(req, res) => {
         req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', 'Welcome to OurBalance!');
-            res.redirect('/records/calendar');
+            res.redirect('/folders');
         })
     } catch (e) {
         res.redirect('/register');
@@ -25,7 +25,7 @@ module.exports.register = async(req, res) => {
 
 module.exports.login = (req, res) => {
     req.flash('success', 'Welcome Back!');
-    res.redirect('/records/calendar');
+    res.redirect('/folders');
 }
 
 module.exports.logout = (req, res) => {

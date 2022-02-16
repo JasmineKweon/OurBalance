@@ -25,3 +25,12 @@ module.exports.hasFolderAdminRight = async(req, res, next) => {
     }
     next();
 }
+
+module.exports.hasFolderAccessRight = async(req, res, next) => {
+    const { folderId } = req.params;
+    const folder = await Folder.findById(folderId);
+    if ((!folder.users.includes(req.user._id)) && (!folder.admin.equals(req.user._id))) {
+        return res.redirect(`/folders`)
+    }
+    next();
+}

@@ -1,10 +1,11 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const records = require("../controllers/records");
 const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, hasRecordAdminRight } = require('../middleware.js');
 
 router.post('/', isLoggedIn, catchAsync(records.createRecord));
+
 router.get('/calendar', isLoggedIn, catchAsync(records.renderCalendar));
 
 router.get('/new/:type', isLoggedIn, catchAsync(records.renderNewForm));
