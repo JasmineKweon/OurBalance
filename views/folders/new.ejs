@@ -1,24 +1,43 @@
-<% layout('layouts/boilerplateFolder')%>
-    <div class="input-form col-6 offset-3">
-        <div class="card mb-3">
-            <div class="card-header">
-                Create New Folder
-            </div>
-            <div class="card-body">
-                <div class="card-text">
-                    <form action="/folders" method="POST">
-                        <div class="mb-3">
-                            <label class="form-label" for="name">Folder Name</label>
-                            <input class="form-control" type="text" id="name" name="name" required>
-                        </div>
-                        <div class="mb-3 float-end">
-                            <button class="btn btn-success" style="width: 100px">Create</button>
-                        </div>
-                    </form>
+<% layout('layouts/boilerplate')%>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Our Balance</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav me-auto">
+                    <a class="nav-link" href="/folders">My Folders</a>
+                </div>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
-        <footer class="mb-3">
-            <a href="/folders">Go to Folders</a>
-        </footer>
-    </div>
+    </nav>
+    <main class="container mt-5 mb-5">
+        <%- include('../partials/flash') %>
+            <div class="input-form col-6 offset-3">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Create New Folder
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <form action="/folders" method="POST">
+                                <div class="mb-3">
+                                    <label class="form-label" for="name">Folder Name</label>
+                                    <input class="form-control" type="text" id="name" name="name" required>
+                                </div>
+                                <div class="mb-3 float-end">
+                                    <button class="btn btn-success" style="width: 100px">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <footer class="mb-3">
+                    <a href="/folders">Go to Folders</a>
+                </footer>
+            </div>
+    </main>

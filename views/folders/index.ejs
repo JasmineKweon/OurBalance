@@ -1,112 +1,131 @@
-<% layout('layouts/boilerplateFolder')%>
-    <div class="folder-list">
-        <div class="invited-folders mb-5">
-            <h2 class="mb-4">Invited Folders</h2>
-            <div class="row">
-                <%if (invitedFolders.length == 0) {%>
-                    <h4 class="text-center text-muted mt-4 mb-5">No Invitation</h4>
-                    <%} %>
-                        <%for (folder of invitedFolders) {%>
-                            <div class="col-sm-4">
-                                <div class="card mb-5">
-                                    <div class="card-header">
-                                        <%=folder.name%>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Members: </h5>
-                                        <p class="card-text">
-                                            <ul>
-                                                <li>
-                                                    <h6 class="text-muted">
-                                                        <span><%=folder.admin.username%> (admin)</span>
-                                                    </h6>
-                                                </li>
-                                                <li>
-                                                    <h6 class="text-muted">
-                                                        <span>Aladdin</span>
-                                                    </h6>
-                                                </li>
-                                            </ul>
-                                        </p>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Total Income:
-                                            <%=folder.totalIncome%>
-                                        </li>
-                                        <li class="list-group-item">Total Spending:
-                                            <%=folder.totalSpending%>
-                                        </li>
-                                        <li class="list-group-item">Total Balance:
-                                            <%=folder.totalIncome - folder.totalSpending%>
-                                        </li>
-                                    </ul>
-                                    <div class="card-body text-end">
-                                        <a href="#" class="btn btn-outline-primary">Accept</a>
-                                        <a href="#" class="btn btn-outline-danger">Reject</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <%} %>
-            </div>
-        </div>
-        <hr>
-        <div class="my-folders mt-3 mb-5">
-            <div class="row mb-3">
-                <div class="col-md-8">
-                    <h2>My Folders</h2>
+<% layout('layouts/boilerplate')%>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Our Balance</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav me-auto">
+                    <a class="nav-link" href="/folders/new">New Folder</a>
                 </div>
-                <div class="col-md-4">
-                    <a href="/folders/new" class="btn btn-outline-dark float-end">Create New Folder</a>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="/logout">Logout</a>
                 </div>
             </div>
-            <div class="row">
-                <%if (folders.length == 0) {%>
-                    <h4 class="text-center text-muted mt-4">No Folders</h4>
-                    <h6 class="text-center text-muted mb-5">Do you want to create a new folder? Click "Create New Folder" button. </h6>
-                    <%} %>
-                        <%for (folder of folders) {%>
-                            <div class="col-sm-4">
-                                <div class="card mb-5">
-                                    <div class="card-header">
-                                        <%=folder.name%>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Members: </h5>
-                                        <p class="card-text">
-                                            <ul>
-                                                <li>
-                                                    <h6 class="text-muted">
-                                                        <span><%=folder.admin.username%> (admin)</span>
-                                                    </h6>
+        </div>
+    </nav>
+    <main class="container mt-5 mb-5">
+        <%- include('../partials/flash') %>
+            <div class="folder-list">
+                <div class="invited-folders mb-5">
+                    <h2 class="mb-4">Invited Folders</h2>
+                    <div class="row">
+                        <%if (invitedFolders.length == 0) {%>
+                            <h4 class="text-center text-muted mt-4 mb-5">No Invitation</h4>
+                            <%} %>
+                                <%for (folder of invitedFolders) {%>
+                                    <div class="col-sm-4">
+                                        <div class="card mb-5">
+                                            <div class="card-header">
+                                                <%=folder.name%>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Members: </h5>
+                                                <p class="card-text">
+                                                    <ul>
+                                                        <li>
+                                                            <h6 class="text-muted">
+                                                                <span><%=folder.admin.username%> (admin)</span>
+                                                            </h6>
+                                                        </li>
+                                                        <li>
+                                                            <h6 class="text-muted">
+                                                                <span>Aladdin</span>
+                                                            </h6>
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Total Income:
+                                                    <%=folder.totalIncome%>
                                                 </li>
-                                                <li>
-                                                    <h6 class="text-muted">
-                                                        <span>Aladdin</span>
-                                                    </h6>
+                                                <li class="list-group-item">Total Spending:
+                                                    <%=folder.totalSpending%>
+                                                </li>
+                                                <li class="list-group-item">Total Balance:
+                                                    <%=folder.totalIncome - folder.totalSpending%>
                                                 </li>
                                             </ul>
-                                        </p>
+                                            <div class="card-body text-end">
+                                                <a href="#" class="btn btn-outline-primary">Accept</a>
+                                                <a href="#" class="btn btn-outline-danger">Reject</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Total Income:
-                                            <%=folder.totalIncome%>
-                                        </li>
-                                        <li class="list-group-item">Total Spending:
-                                            <%=folder.totalSpending%>
-                                        </li>
-                                        <li class="list-group-item">Total Balance:
-                                            <%=folder.totalIncome - folder.totalSpending%>
-                                        </li>
-                                    </ul>
-                                    <div class="card-body text-end">
-                                        <a href="/folders/<%=folder._id%>" class="btn btn-outline-primary">See Details</a>
-                                        <form class="d-inline" action="/folders/<%=folder._id%>?_method=DELETE" method="POST">
-                                            <button class="card-link btn btn-outline-danger">DELETE</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                                    <%} %>
+                    </div>
+                </div>
+                <hr>
+                <div class="my-folders mt-3 mb-5">
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <h2>My Folders</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/folders/new" class="btn btn-outline-dark float-end">Create New Folder</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <%if (folders.length == 0) {%>
+                            <h4 class="text-center text-muted mt-4">No Folders</h4>
+                            <h6 class="text-center text-muted mb-5">Do you want to create a new folder? Click "Create New Folder" button. </h6>
                             <%} %>
+                                <%for (folder of folders) {%>
+                                    <div class="col-sm-4">
+                                        <div class="card mb-5">
+                                            <div class="card-header">
+                                                <%=folder.name%>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Members: </h5>
+                                                <p class="card-text">
+                                                    <ul>
+                                                        <li>
+                                                            <h6 class="text-muted">
+                                                                <span><%=folder.admin.username%> (admin)</span>
+                                                            </h6>
+                                                        </li>
+                                                        <li>
+                                                            <h6 class="text-muted">
+                                                                <span>Aladdin</span>
+                                                            </h6>
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Total Income:
+                                                    <%=folder.totalIncome%>
+                                                </li>
+                                                <li class="list-group-item">Total Spending:
+                                                    <%=folder.totalSpending%>
+                                                </li>
+                                                <li class="list-group-item">Total Balance:
+                                                    <%=folder.totalIncome - folder.totalSpending%>
+                                                </li>
+                                            </ul>
+                                            <div class="card-body text-end">
+                                                <a href="/folders/<%=folder._id%>" class="btn btn-outline-primary">See Details</a>
+                                                <form class="d-inline" action="/folders/<%=folder._id%>?_method=DELETE" method="POST">
+                                                    <button class="card-link btn btn-outline-danger">DELETE</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%} %>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+    </main>
