@@ -1,7 +1,9 @@
 const Record = require('../models/record');
+const Comment = require('../models/comment');
 const User = require('../models/user');
 const Category = require('../models/category');
 const moment = require('moment');
+const Folder = require('../models/folder');
 
 module.exports.showRecord = async(req, res) => {
     const record = await Record.findById(req.params.id).populate('category').populate({
@@ -34,9 +36,15 @@ module.exports.createRecord = async(req, res) => {
     const { folderId } = req.params;
     record.folder = folderId;
     record.author = req.user._id;
+    const category = await Category.findById(record.category);
+    if (category.type === 'Spending') {
+        await Folder.findByIdAndUpdate(folderId, { $inc: { totalSpending: record.price } });
+    } else if (category.type === 'Income') {
+        await Folder.findByIdAndUpdate(folderId, { $inc: { totalIncome: record.price } });
+    }
     await record.save();
     req.flash('success', 'Successfully created new record!');
-    res.redirect(`/folders/${folderId}`);
+    res.redirect(`/folders/${folderId}?year=${record.date.split("-")[0]}&month=${record.date.split("-")[1]}`)
 }
 
 module.exports.renderEditForm = async(req, res) => {
@@ -51,14 +59,35 @@ module.exports.renderEditForm = async(req, res) => {
 
 module.exports.updateRecord = async(req, res) => {
     const { id, folderId } = req.params;
-    const record = await Record.findByIdAndUpdate(id, {...req.body.record });
+    const record = await Record.findById(id);
+    const updatedRecord = await Record.findByIdAndUpdate(id, {...req.body.record });
+    const category = await Category.findById(record.category);
+    if (category.type === 'Spending') {
+        await Folder.findByIdAndUpdate(folderId, { $inc: { totalSpending: req.body.record.price - record.price } });
+    } else if (category.type === 'Income') {
+        await Folder.findByIdAndUpdate(folderId, { $inc: { totalIncome: req.body.record.price - record.price } });
+    }
+
+
+
+    console.log(`record.price: ${record.price}`);
+    console.log(`updatedRecord.price: ${req.body.record.price}`);
+    console.log(`record.price - updatedRecord.price: ${record.price - req.body.record.price}`);
     req.flash('success', 'Successfully updated the record!');
-    res.redirect(`/folders/${folderId}/records/${record._id}`)
+    res.redirect(`/folders/${folderId}/records/${updatedRecord._id}`)
 }
 
 module.exports.deleteRecord = async(req, res) => {
     const { id, folderId } = req.params;
+    const record = await Record.findById(id);
+    const category = await Category.findById(record.category);
+    if (category.type === 'Spending') {
+        await Folder.findByIdAndUpdate(folderId, { $inc: { totalSpending: -record.price } });
+    } else if (category.type === 'Income') {
+        await Folder.findByIdAndUpdate(folderId, { $inc: { totalIncome: -record.price } });
+    }
+    await Comment.deleteMany({ record: id });
     await Record.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted the record!');
-    res.redirect(`/folders/${folderId}`);
+    res.redirect(`/folders/${folderId}?year=${record.date.split("-")[0]}&month=${record.date.split("-")[1]}`)
 }

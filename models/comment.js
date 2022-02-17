@@ -8,6 +8,11 @@ const commentSchema = new Schema({
         ref: 'Folder',
         required: true
     },
+    record: {
+        type: Schema.Types.ObjectId,
+        ref: 'Record',
+        required: true
+    },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User',

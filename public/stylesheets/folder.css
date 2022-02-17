@@ -1,3 +1,11 @@
+.spending {
+    color: #d13e3e;
+}
+
+.income {
+    color: #396ee2;
+}
+
 @media (max-width: 992px) {
     .folder {
         width: 50%;
