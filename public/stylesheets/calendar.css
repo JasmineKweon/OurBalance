@@ -59,9 +59,9 @@
 }
 
 @media (max-width: 1250px) {
-    .row {
+    /* .main-page .row {
         flex-direction: column;
-    }
+    } */
     .calendar {
         width: 600px;
         align-self: center;
@@ -75,5 +75,20 @@
 @media (max-width: 600px) {
     .money {
         font-size: 9px;
+    }
+}
+
+@media (max-width: 300px) {
+    .year-month {
+        font-size: 20px;
+    }
+    .modal-description h5 {
+        font-size: 15px;
+    }
+    .modal-price h5 {
+        font-size: 15px;
+    }
+    h6 {
+        font-size: 14px;
     }
 }

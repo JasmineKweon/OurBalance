@@ -72,15 +72,15 @@
                                                     <br>
                                                     <%for(record of date.records){%>
                                                         <div>
-                                                            <div class="row">
-                                                                <div class="col-7">
+                                                            <div class="row justify-content-between">
+                                                                <div class="modal-description col-5">
                                                                     <a href="/folders/<%=folder._id%>/records/<%=record._id %>" class="tooltip-test" title="Tooltip">
                                                                         <h5>
                                                                             <%=record.description%>
                                                                         </h5>
                                                                     </a>
                                                                 </div>
-                                                                <div class="col-5">
+                                                                <div class="modal-price col-5">
                                                                     <% if ((record.category.type) === "Income") { %>
                                                                         <h5><span class="income float-end">+ ¥<%=record.price%></span></h5>
                                                                         <%} else {%>
@@ -192,5 +192,10 @@
                         </ul>
                     </div>
                 </div>
+
+
+
+
+
             </div>
     </main>

@@ -21,79 +21,81 @@
     </nav>
     <main class="container mt-5 mb-5">
         <%- include('../partials/flash') %>
-            <div class="mb-4 col-6 offset-3">
-                <div class="card mb-3">
-                    <div class="card-header text-primary">
-                        <%=record.category.type%>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h5 class="card-title text-primary">
-                                <%=record.description%>
-                            </h5>
-                            <p class="card-text">
-                                ¥
-                                <%=record.price%>
-                            </p>
+            <div class="row justify-content-center">
+                <div class="mb-4 col-md-9 col-sm-12">
+                    <div class="card mb-3">
+                        <div class="card-header text-primary">
+                            <%=record.category.type%>
                         </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h5 class="card-title text-primary">
+                                    <%=record.description%>
+                                </h5>
+                                <p class="card-text">
+                                    ¥
+                                    <%=record.price%>
+                                </p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <h6 class="card-subtitle text-muted mb-2">Payer</h6>
+                                    <p class="card-text">
+                                        <%=record.payer.username%>
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <h6 class="card-subtitle text-muted mb-2">Date</h6>
+                                    <p class="card-text">
+                                        <%=moment(record.date).format('yyyy/MM/DD')%>
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <h6 class="card-subtitle text-muted mb-2">Category</h6>
+                                    <p class="card-text">
+                                        <%=record.category.name%>
+                                    </p>
+                                </li>
+                                <% if (currentUser && (record.author._id.equals(currentUser._id) || record.payer._id.equals(currentUser._id))) { %>
+                                    <li class="list-group-item text-end">
+                                        <a href="/folders/<%=folder._id%>/records/<%=record._id%>/edit" class="card-link btn btn-warning">Edit</a>
+                                        <form class="d-inline" action="/folders/<%=folder._id%>/records/<%=record._id%>?_method=DELETE" method="POST">
+                                            <button class="card-link btn btn-danger">DELETE</button>
+                                        </form>
+                                    </li>
+                                    <% } %>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <form action="/folders/<%=folder._id%>/records/<%=record._id%>/comments" method="POST" class="mb-3">
+                                <div class="mb-3">
+                                    <label class="form-label" for="body">Leave a Comment</label>
+                                    <textarea class="form-control" name="comment[body]" id="body" cols="30" rows="2" required></textarea>
+                                </div>
+                                <button class="btn btn-success">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card border-light mb-3">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <h6 class="card-subtitle text-muted mb-2">Payer</h6>
-                                <p class="card-text">
-                                    <%=record.payer.username%>
-                                </p>
-                            </li>
-                            <li class="list-group-item">
-                                <h6 class="card-subtitle text-muted mb-2">Date</h6>
-                                <p class="card-text">
-                                    <%=moment(record.date).format('yyyy/MM/DD')%>
-                                </p>
-                            </li>
-                            <li class="list-group-item">
-                                <h6 class="card-subtitle text-muted mb-2">Category</h6>
-                                <p class="card-text">
-                                    <%=record.category.name%>
-                                </p>
-                            </li>
-                            <% if (currentUser && (record.author._id.equals(currentUser._id) || record.payer._id.equals(currentUser._id))) { %>
-                                <li class="list-group-item text-end">
-                                    <a href="/folders/<%=folder._id%>/records/<%=record._id%>/edit" class="card-link btn btn-warning">Edit</a>
-                                    <form class="d-inline" action="/folders/<%=folder._id%>/records/<%=record._id%>?_method=DELETE" method="POST">
-                                        <button class="card-link btn btn-danger">DELETE</button>
-                                    </form>
+                            <% for (comment of record.comments) { %>
+                                <li class="list-group-item">
+                                    <span class="text-primary"><%=comment.author.username%>&nbsp;</span>
+                                    <%=comment.body%>
+                                        <br>
+                                        <% if (currentUser && comment.author._id.equals(currentUser._id)) { %>
+                                            <form action="/folders/<%=folder._id%>/records/<%=record._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                                <button class="btn btn-outline-secondary btn-sm float-end d-inline">Delete</button>
+                                            </form>
+                                            <% } %>
+                                                <small class=" text-muted ">Created at <%=moment(comment.createdDateTime).format('yyyy/MM/DD HH:mm:ss')%></small>
                                 </li>
                                 <% } %>
                         </ul>
                     </div>
-                    <div class="card-footer">
-                        <form action="/folders/<%=folder._id%>/records/<%=record._id%>/comments" method="POST" class="mb-3">
-                            <div class="mb-3">
-                                <label class="form-label" for="body">Leave a Comment</label>
-                                <textarea class="form-control" name="comment[body]" id="body" cols="30" rows="2" required></textarea>
-                            </div>
-                            <button class="btn btn-success">Submit</button>
-                        </form>
-                    </div>
+                    <footer class="mb-3">
+                        <a href="/folders/<%=folder._id%>">Go to Calendar</a>
+                    </footer>
                 </div>
-                <div class="card border-light mb-3">
-                    <ul class="list-group list-group-flush">
-                        <% for (comment of record.comments) { %>
-                            <li class="list-group-item">
-                                <span class="text-primary"><%=comment.author.username%>&nbsp;</span>
-                                <%=comment.body%>
-                                    <br>
-                                    <% if (currentUser && comment.author._id.equals(currentUser._id)) { %>
-                                        <form action="/folders/<%=folder._id%>/records/<%=record._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
-                                            <button class="btn btn-outline-secondary btn-sm float-end d-inline">Delete</button>
-                                        </form>
-                                        <% } %>
-                                            <small class=" text-muted ">Created at <%=moment(comment.createdDateTime).format('yyyy/MM/DD HH:mm:ss')%></small>
-                            </li>
-                            <% } %>
-                    </ul>
-                </div>
-                <footer class="mb-3">
-                    <a href="/folders/<%=folder._id%>">Go to Calendar</a>
-                </footer>
             </div>
     </main>

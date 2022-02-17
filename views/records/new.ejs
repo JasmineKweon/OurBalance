@@ -20,61 +20,63 @@
     </nav>
     <main class="container mt-5 mb-5">
         <%- include('../partials/flash') %>
-            <div class="input-form col-8 offset-2">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link <%= type === 'Spending' ? 'active': '' %>" aria-current="true" href="/folders/<%=folderId%>/records/new/Spending?date=<%=date%>">Spending</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <%= type === 'Income' ? 'active': '' %>" aria-current="true" href="/folders/<%=folderId%>/records/new/Income?date=<%=date%>">Income</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-text">
-                            <form action="/folders/<%=folderId%>/records" method="POST">
-                                <div class="mb-3">
-                                    <label class="form-label" for="price">Price</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">¥</span>
-                                        <input type="text" class="form-control" id="price" name="record[price]" required>
+            <div class="row justify-content-center">
+                <div class="input-form col-md-9 col-sm-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link <%= type === 'Spending' ? 'active': '' %>" aria-current="true" href="/folders/<%=folderId%>/records/new/Spending?date=<%=date%>">Spending</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link <%= type === 'Income' ? 'active': '' %>" aria-current="true" href="/folders/<%=folderId%>/records/new/Income?date=<%=date%>">Income</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <form action="/folders/<%=folderId%>/records" method="POST">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="price">Price</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">¥</span>
+                                            <input type="text" class="form-control" id="price" name="record[price]" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="payer">Payer </label>
-                                    <select class="form-select" aria-label="Default select" name="record[payer]" id="payer" required>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="payer">Payer </label>
+                                        <select class="form-select" aria-label="Default select" name="record[payer]" id="payer" required>
                                     <% for(let user of users) {%>
                                     <option value="<%=user._id%>" <%= currentUser.username === user.username ? 'selected': '' %>><%=user.username%></option>
                                      <% } %>
                                 </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="date">Date </label>
-                                    <input class="form-control" type="date" id="date" name="record[date]" value="<%=date%>" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="description">Description</label>
-                                    <input class="form-control" type="text" id="description" name="record[description]" required>
-                                </div>
-                                <div class="categories mb-3">
-                                    <% for(let category of categories) {%>
-                                        <div>
-                                            <input type="radio" class="btn-check" id="<%=category.name%>" name="record[category]" value="<%=category._id%>">
-                                            <label class="category btn btn-outline-primary mb-2" for="<%=category.name%>"><%=category.name%></label>
-                                        </div>
-                                        <% } %>
-                                </div>
-                                <div class="mb-3 float-end">
-                                    <button class="btn btn-success" style="width: 100px">Create</button>
-                                </div>
-                            </form>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="date">Date </label>
+                                        <input class="form-control" type="date" id="date" name="record[date]" value="<%=date%>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="description">Description</label>
+                                        <input class="form-control" type="text" id="description" name="record[description]" required>
+                                    </div>
+                                    <div class="categories mb-3">
+                                        <% for(let category of categories) {%>
+                                            <div>
+                                                <input type="radio" class="btn-check" id="<%=category.name%>" name="record[category]" value="<%=category._id%>">
+                                                <label class="category btn btn-outline-primary mb-2" for="<%=category.name%>"><%=category.name%></label>
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                    <div class="mb-3 float-end">
+                                        <button class="btn btn-success" style="width: 100px">Create</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                    <footer class="mb-3">
+                        <a href="/folders/<%=folderId%>">Go to Calendar</a>
+                    </footer>
                 </div>
-                <footer class="mb-3">
-                    <a href="/folders/<%=folderId%>">Go to Calendar</a>
-                </footer>
             </div>
     </main>
