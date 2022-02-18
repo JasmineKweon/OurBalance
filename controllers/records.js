@@ -20,10 +20,11 @@ module.exports.showRecord = async(req, res) => {
 }
 
 module.exports.renderNewForm = async(req, res) => {
-    const users = await User.find({}); //should be fixed!
+    const { folderId } = req.params;
+    const folder = await Folder.findById(folderId);
+    const users = await User.find({ _id: { $in: folder.members } });
     const type = req.params.type;
     const categories = await Category.find({ type: type });
-    const { folderId } = req.params;
     let date = moment(new Date()).format('yyyy-MM-DD');
     if (req.query.date !== undefined) {
         date = req.query.date;
@@ -48,7 +49,9 @@ module.exports.createRecord = async(req, res) => {
 }
 
 module.exports.renderEditForm = async(req, res) => {
-    const users = await User.find({}); //should be fixed!!
+    const { folderId } = req.params;
+    const folder = await Folder.findById(folderId);
+    const users = await User.find({ _id: { $in: folder.members } });
     const record = await Record.findById(req.params.id).populate('category').populate({
         path: 'payer',
         select: 'username'
