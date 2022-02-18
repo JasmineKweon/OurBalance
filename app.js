@@ -13,6 +13,7 @@ const recordRoutes = require('./routes/records');
 const userRoutes = require('./routes/users');
 const folderRoutes = require('./routes/folders');
 const commentRoutes = require('./routes/comments');
+const memberRoutes = require('./routes/members');
 const User = require('./models/user');
 const AppError = require('./utils/AppError');
 
@@ -60,6 +61,7 @@ app.use((req, res, next) => {
 
 app.use("/", userRoutes);
 app.use("/folders", folderRoutes);
+app.use("/folders/:folderId/members", memberRoutes);
 app.use("/folders/:folderId/records", recordRoutes);
 app.use('/folders/:folderId/records/:id/comments', commentRoutes);
 

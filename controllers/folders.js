@@ -66,6 +66,7 @@ module.exports.createFolder = async(req, res) => {
     const folder = new Folder();
     folder.name = req.body.name;
     folder.admin = req.user._id;
+    folder.members.push(req.user._id);
     folder.totalIncome = 0;
     folder.totalSpending = 0;
     await folder.save();

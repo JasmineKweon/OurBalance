@@ -20,7 +20,7 @@ module.exports.showRecord = async(req, res) => {
 }
 
 module.exports.renderNewForm = async(req, res) => {
-    const users = await User.find({});
+    const users = await User.find({}); //should be fixed!
     const type = req.params.type;
     const categories = await Category.find({ type: type });
     const { folderId } = req.params;
@@ -48,7 +48,7 @@ module.exports.createRecord = async(req, res) => {
 }
 
 module.exports.renderEditForm = async(req, res) => {
-    const users = await User.find({});
+    const users = await User.find({}); //should be fixed!!
     const record = await Record.findById(req.params.id).populate('category').populate({
         path: 'payer',
         select: 'username'

@@ -11,11 +11,11 @@ const FolderSchema = new Schema({
         ref: 'User',
         required: true
     },
-    users: [{
+    members: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
-    invitedUser: [{
+    invitedUsers: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
