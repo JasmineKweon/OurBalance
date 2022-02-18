@@ -236,10 +236,16 @@
                             <form action="/folders/<%=folder._id%>/members/delete" method="POST">
                                 <div class="modal-body">
                                     <div class="mb-3">
-                                        <label class="col-form-label" for="user">Choose User:</label>
-                                        <select class="form-select" aria-label="Default select" name="user" id="user" required>
+                                        <% if (folder.members.length === 1) { %>
+                                            No Members
+                                            <% } else {%>
+                                                <label class="col-form-label" for="user">Choose User:</label>
+                                                <select class="form-select" aria-label="Default select" name="user" id="user" required>
                                         <% for(let member of folder.members) {%>
+                                            <% if(!member._id.equals(folder.admin._id)){ %>
                                             <option value="<%=member._id%>"><%=member.username%></option>
+                                            <% } %>
+                                        <% } %>
                                         <% } %>
                                         </select>
                                     </div>
