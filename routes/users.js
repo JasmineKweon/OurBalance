@@ -10,7 +10,7 @@ router.route('/register')
 
 router.route('/login')
     .get(users.renderLoginrForm)
-    .post(passport.authenticate('local', { failureRedirect: '/home' }), users.login)
+    .post(passport.authenticate('local', { failureRedirect: '/' }), users.login)
 
 router.get('/logout', users.logout);
 

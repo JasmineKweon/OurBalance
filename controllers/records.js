@@ -70,12 +70,6 @@ module.exports.updateRecord = async(req, res) => {
     } else if (category.type === 'Income') {
         await Folder.findByIdAndUpdate(folderId, { $inc: { totalIncome: req.body.record.price - record.price } });
     }
-
-
-
-    console.log(`record.price: ${record.price}`);
-    console.log(`updatedRecord.price: ${req.body.record.price}`);
-    console.log(`record.price - updatedRecord.price: ${record.price - req.body.record.price}`);
     req.flash('success', 'Successfully updated the record!');
     res.redirect(`/folders/${folderId}/records/${updatedRecord._id}`)
 }

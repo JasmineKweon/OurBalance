@@ -56,8 +56,6 @@ app.use((req, res, next) => {
     res.locals.moment = moment;
     res.locals.successMsg = req.flash('success');
     res.locals.errorMsg = req.flash('error');
-    console.log(`res.locals.successMsg: ${res.locals.successMsg}`);
-    console.log(`res.locals.errorMsg: ${res.locals.errorMsg}`);
     next();
 })
 

@@ -40,16 +40,17 @@
                                         <h5 class="card-title">Members: </h5>
                                         <p class="card-text">
                                             <ul>
-                                                <li>
-                                                    <h6 class="text-muted">
-                                                        <span><%=folder.admin.username%> (admin)</span>
-                                                    </h6>
-                                                </li>
-                                                <li>
-                                                    <h6 class="text-muted">
-                                                        <span>Aladdin</span>
-                                                    </h6>
-                                                </li>
+                                                <% for (member of folder.members) { %>
+                                                    <li>
+                                                        <h6 class="text-muted">
+                                                            <span><%=member.username%>
+                                                            <% if (member._id.equals(folder.admin)) { %>
+                                                                (admin)
+                                                                <% } %>
+                                                            </span>
+                                                        </h6>
+                                                    </li>
+                                                    <% } %>
                                             </ul>
                                         </p>
                                     </div>
@@ -100,16 +101,29 @@
                                         <h5 class="card-title">Members: </h5>
                                         <p class="card-text">
                                             <ul>
-                                                <li>
-                                                    <h6 class="text-muted">
-                                                        <span><%=folder.admin.username%> (admin)</span>
-                                                    </h6>
-                                                </li>
-                                                <li>
-                                                    <h6 class="text-muted">
-                                                        <span>Aladdin</span>
-                                                    </h6>
-                                                </li>
+                                                <% for (member of folder.members) { %>
+                                                    <li>
+                                                        <h6 class="text-muted">
+                                                            <span><%=member.username%>
+                                                            <% if (member._id.equals(folder.admin)) { %>
+                                                                (admin)
+                                                                <% } %>
+                                                            </span>
+                                                        </h6>
+                                                    </li>
+                                                    <% } %>
+                                            </ul>
+                                        </p>
+                                        <h5 class="card-title">Invited Users: </h5>
+                                        <p class="card-text">
+                                            <ul>
+                                                <% for (user of folder.invitedUsers) { %>
+                                                    <li>
+                                                        <h6 class="text-muted">
+                                                            <span><%=user.username%></span>
+                                                        </h6>
+                                                    </li>
+                                                    <% } %>
                                             </ul>
                                         </p>
                                     </div>
