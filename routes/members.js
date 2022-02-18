@@ -4,7 +4,11 @@ const members = require('../controllers/members');
 const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, hasFolderAdminRight } = require('../middleware.js');
 
-router.route('/')
-    .post(isLoggedIn, hasFolderAdminRight, catchAsync(members.addInvitedUser))
+router.post('/invite', isLoggedIn, hasFolderAdminRight, catchAsync(members.addInvitedUser))
+
+router.post('/accept', isLoggedIn, catchAsync(members.acceptInvitation))
+
+router.post('/reject', isLoggedIn, catchAsync(members.rejectInvitation))
+
 
 module.exports = router;

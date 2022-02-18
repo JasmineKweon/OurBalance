@@ -47,11 +47,11 @@ async function renderDatesData(year, month, folderId) {
 }
 
 module.exports.index = async(req, res) => {
-    const folders = await Folder.find({ admin: req.user._id }).populate({
+    const folders = await Folder.find({ members: { "$in": [req.user._id] } }).populate({
         path: 'admin',
         select: 'username'
     });
-    const invitedFolders = await Folder.find({ invitedUser: { "$in": [req.user._id] } }).populate({
+    const invitedFolders = await Folder.find({ invitedUsers: { "$in": [req.user._id] } }).populate({
         path: 'admin',
         select: 'username'
     });

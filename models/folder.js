@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const arrayUniquePlugin = require('mongoose-unique-array');
 const Schema = mongoose.Schema;
 
 const FolderSchema = new Schema({
@@ -28,5 +29,7 @@ const FolderSchema = new Schema({
         required: true
     }
 })
+
+FolderSchema.plugin(arrayUniquePlugin);
 
 module.exports = mongoose.model('Folder', FolderSchema);

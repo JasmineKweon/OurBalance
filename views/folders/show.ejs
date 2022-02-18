@@ -114,11 +114,11 @@
                                 <a href="/folders/<%=folder._id%>/records/new/Spending" class="btn btn-success">New Record</a>
                                 <a href="/folders/<%=folder._id%>/records/new/Spending" class="btn btn-primary">Split Spending</a>
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Edit Users
+                                    Edit Members
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteUser">Invite User</button></li>
-                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteUser">Uninvite User</button></li>
+                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteMember">Invite Member</button></li>
+                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteUser">Delete Memeber</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -203,14 +203,14 @@
                     </div>
                 </div>
                 <!--Modal for Invite Users-->
-                <div class="modal fade" id="inviteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="inviteMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Invite User</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Invite Member</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form action="/folders/<%=folder._id%>/members" method="POST">
+                            <form action="/folders/<%=folder._id%>/members/invite" method="POST">
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="email" class="col-form-label">User's Email:</label>
