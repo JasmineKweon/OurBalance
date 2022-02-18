@@ -91,7 +91,10 @@ module.exports.deleteFolder = async(req, res) => {
 
 module.exports.showCalendar = async(req, res) => {
     const { folderId } = req.params;
-    const folder = await Folder.findById(folderId);
+    const folder = await Folder.findById(folderId).populate({
+        path: 'members',
+        select: 'username'
+    });
     let year;
     let month;
     if ((req.query.year === undefined) || (req.query.month === undefined)) {

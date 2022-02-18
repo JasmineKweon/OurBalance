@@ -10,5 +10,8 @@ router.post('/accept', isLoggedIn, catchAsync(members.acceptInvitation))
 
 router.post('/reject', isLoggedIn, catchAsync(members.rejectInvitation))
 
+router.post('/delete', isLoggedIn, catchAsync(members.deleteMember))
+
+
 
 module.exports = router;

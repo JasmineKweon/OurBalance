@@ -39,3 +39,12 @@ module.exports.rejectInvitation = async(req, res) => {
     req.flash('success', 'Successfully rejected invitation')
     res.redirect(`/folders`);
 }
+
+module.exports.deleteMember = async(req, res) => {
+    const { folderId } = req.params;
+    const folder = await Folder.findById(folderId);
+    folder.members.pop(req.user._id);
+    await folder.save();
+    req.flash('success', 'Successfully deleted the user')
+    res.redirect(`/folders/${folderId}`);
+}

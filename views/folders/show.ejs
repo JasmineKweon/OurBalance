@@ -118,7 +118,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                                     <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteMember">Invite Member</button></li>
-                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteUser">Delete Memeber</button></li>
+                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteMember">Delete Memeber</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                         </ul> -->
                     </div>
                 </div>
-                <!--Modal for Invite Users-->
+                <!--Modal for Invite Member-->
                 <div class="modal fade" id="inviteMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -219,7 +219,34 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Invite User</button>
+                                    <button type="submit" class="btn btn-primary">Invite</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--Modal for Delete Memeber-->
+                <div class="modal fade" id="deleteMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Member</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="/folders/<%=folder._id%>/members/delete" method="POST">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="col-form-label" for="user">Choose User:</label>
+                                        <select class="form-select" aria-label="Default select" name="user" id="user" required>
+                                        <% for(let member of folder.members) {%>
+                                            <option value="<%=member._id%>"><%=member.username%></option>
+                                        <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Delete</button>
                                 </div>
                             </form>
                         </div>
