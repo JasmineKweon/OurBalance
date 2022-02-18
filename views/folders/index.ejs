@@ -140,9 +140,11 @@
                                     </ul>
                                     <div class="card-body text-end">
                                         <a href="/folders/<%=folder._id%>" class="btn btn-outline-dark">See Details</a>
-                                        <form class="d-inline" action="/folders/<%=folder._id%>?_method=DELETE" method="POST">
-                                            <button class="card-link btn btn-outline-danger">DELETE</button>
-                                        </form>
+                                        <% if (currentUser && (folder.admin.equals(currentUser._id))) { %>
+                                            <form class="d-inline" action="/folders/<%=folder._id%>?_method=DELETE" method="POST">
+                                                <button class="card-link btn btn-outline-danger">DELETE</button>
+                                            </form>
+                                            <% } %>
                                     </div>
                                 </div>
                             </div>
