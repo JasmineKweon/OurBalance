@@ -173,22 +173,18 @@
                                 </h6>
                             </li>
                         </ul>
-                        <!-- <div class="card-header text-primary ">
-                            How much you owe?
+                        <div class="card-header text-primary ">
+                            Spending Status
                         </div>
                         <ul class="list-group list-group-flush ">
-                            <li class="list-group-item ">
-                                <h6 class="text-muted ">
-                                    <span>Jasmine Spent:</span>
-                                    <span class="float-end ">¥15,250,000</span>
-                                </h6>
-                            </li>
-                            <li class="list-group-item ">
-                                <h6 class="text-muted ">
-                                    <span>Aladdin Spent:</span>
-                                    <span class="float-end ">¥15,250,000</span>
-                                </h6>
-                            </li>
+                            <%for (let [key, value] of spendingStatus) {%>
+                                <li class="list-group-item ">
+                                    <h6 class="text-muted ">
+                                        <span><%=key%> spent:</span>
+                                        <span class="float-end ">¥<%=value%></span>
+                                    </h6>
+                                </li>
+                                <% }%>
                         </ul>
                         <div class="card-header text-primary ">
                             How much you owe?
@@ -199,7 +195,7 @@
                                     <span>Jasmine has to payback ¥250,000 to Aladdin.</span>
                                 </h7>
                             </li>
-                        </ul> -->
+                        </ul>
                     </div>
                 </div>
                 <!--Modal for Invite Member-->

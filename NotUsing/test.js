@@ -1,9 +1,21 @@
-function sumAll(...nums) {
-    let total = 0;
-    console.log(nums); //[{ price: 1 }, { price: 2 }]
-    for (let n of nums) total += n.price;
-    return total;
+const Folder = require('../models/folder');
+const Record = require('../models/record');
+const Comment = require('../models/comment');
+const moment = require('moment');
+
+function test() {
+    const folderId = '62113cec14beaac76532b17c';
+    const folderRecords = await Record.find({ folder: folderId }).populate('payer');
+    const folder = await Folder.findById(folderId).populate({
+        path: 'members',
+        select: 'username'
+    });
+    const spendingStatus = new Map();
+
+    for (member of folder.members) {
+
+    }
+
 }
 
-const result = sumAll({ price: 1 }, { price: 2 });
-console.log(result);
+test();
