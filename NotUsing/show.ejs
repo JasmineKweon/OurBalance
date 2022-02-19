@@ -191,20 +191,16 @@
                         </div>
                         <ul class="list-group list-group-flush ">
                             <%for (let [key, value] of spendingStatus) {%>
-                                <%if (parseInt(monthlySpending / spendingStatus.size) < value) { %>
-                                    <li class="list-group-item ">
-                                        <h6 class="text-muted float-end">
+                                <li class="list-group-item ">
+                                    <h6 class="text-muted float-end">
+                                        <%if (parseInt(monthlySpending / spendingStatus.size) < value) { %>
                                             <span><%=key%> needs to receive: ¥<%=value-parseInt(monthlySpending / spendingStatus.size)%></span>
-                                        </h6>
-                                    </li>
-                                    <% } else if (parseInt(monthlySpending / spendingStatus.size) > value) { %>
-                                        <li class="list-group-item ">
-                                            <h6 class="text-muted float-end">
-                                                <span><%=key%> needs to pay: ¥<%=parseInt(monthlySpending / spendingStatus.size)-value%></span>
-                                            </h6>
-                                        </li>
-                                        <% }%>
-                                            <% }%>
+                                            <%} else if {%>
+                                                <span><%=key%> needs to give: ¥<%=parseInt(monthlySpending / spendingStatus.size)-value%></span>
+                                                <%}%>
+                                    </h6>
+                                </li>
+                                <% }%>
                         </ul>
                     </div>
                 </div>
