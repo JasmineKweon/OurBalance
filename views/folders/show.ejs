@@ -112,13 +112,18 @@
                             <a href="/folders">Go to Folders</a>
                             <div class="float-end">
                                 <a href="/folders/<%=folder._id%>/records/new/Spending" class="btn btn-success">New Record</a>
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                <% if (currentUser && (folder.admin._id.equals(currentUser._id))) { %>
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                     Edit Members
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteMember">Invite Member</button></li>
-                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteMember">Delete Memeber</button></li>
-                                </ul>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteMember">Invite Member</button></li>
+                                        <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteMember">Delete Memeber</button></li>
+                                    </ul>
+                                    <% } else { %>
+                                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#inviteMember">Invite Member</button>
+                                        <% } %>
                             </div>
                         </div>
                     </div>
