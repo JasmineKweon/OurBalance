@@ -7,17 +7,13 @@ module.exports.addInvitedUser = async(req, res) => {
     const folder = await Folder.findById(folderId);
     const user = await User.findOne({ email: req.body.email });
     if (user == null) {
-        // console.log('user is null')
-        //req.flash('error', 'There is no user') //Fix !
-        req.flash('error', 'There is no user') //Fix !
+        req.flash('error', 'There is no user')
         return res.redirect(`/folders/${folderId}`);
     } else if (folder.invitedUsers.includes(user._id)) {
-        // console.log('invited user already invited');
-        req.flash('error', 'The user is already invited') //Fix !
+        req.flash('error', 'The user is already invited')
         return res.redirect(`/folders/${folderId}`);
     } else if (folder.members.includes(user._id)) {
-        // console.log('invited user already member');
-        req.flash('error', 'The user is already a member') //Fix !
+        req.flash('error', 'The user is already a member')
         return res.redirect(`/folders/${folderId}`);
     }
     folder.invitedUsers.push(user);
