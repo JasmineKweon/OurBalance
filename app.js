@@ -11,7 +11,7 @@ const flash = require('connect-flash');
 const User = require('./models/user');
 const AppError = require('./utils/AppError');
 const helmet = require('helmet');
-//const mongoSanitize = require('express-mongo-sanitize');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const recordRoutes = require('./routes/records');
 const userRoutes = require('./routes/users');
@@ -46,9 +46,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(session(sessionConfig));
-// app.use(mongoSanitize({
-//     replaceWith: '_'
-// }))
+app.use(mongoSanitize({
+    replaceWith: '_'
+}))
 app.use(flash());
 app.use(helmet());
 
@@ -76,6 +76,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req, res, next) => {
+    console.log(req.query);
     res.locals.currentUser = req.user;
     res.locals.moment = moment;
     res.locals.success = req.flash('success');
