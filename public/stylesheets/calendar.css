@@ -59,9 +59,6 @@
 }
 
 @media (max-width: 1250px) {
-    /* .main-page .row {
-        flex-direction: column;
-    } */
     .calendar {
         width: 600px;
         align-self: center;

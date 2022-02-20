@@ -10,8 +10,8 @@
                 <div class="navbar-nav me-auto">
                     <a class="nav-link" href="/folders">My Folders</a>
                     <a class="nav-link" href="/folders/new">New Folder</a>
-                    <a class="nav-link" href="/folders/<%=folder._id%>/records/new/Spending">New Record</a>
-                    <a class="nav-link" href="/folders/<%=folder._id%>">Go Back to Calendar</a>
+                    <a class="nav-link" href="/folders/<%=record.folder._id%>/records/new/Spending">New Record</a>
+                    <a class="nav-link" href="/folders/<%=record.folder._id%>">Go Back to Calendar</a>
                 </div>
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link" href="/logout">Logout</a>
@@ -58,8 +58,8 @@
                                 </li>
                                 <% if (currentUser && (record.author._id.equals(currentUser._id) || record.payer._id.equals(currentUser._id))) { %>
                                     <li class="list-group-item text-end">
-                                        <a href="/folders/<%=folder._id%>/records/<%=record._id%>/edit" class="card-link btn btn-warning">Edit</a>
-                                        <form class="d-inline" action="/folders/<%=folder._id%>/records/<%=record._id%>?_method=DELETE" method="POST">
+                                        <a href="/folders/<%=record.folder._id%>/records/<%=record._id%>/edit" class="card-link btn btn-warning">Edit</a>
+                                        <form class="d-inline" action="/folders/<%=record.folder._id%>/records/<%=record._id%>?_method=DELETE" method="POST">
                                             <button class="card-link btn btn-danger">DELETE</button>
                                         </form>
                                     </li>
@@ -67,7 +67,7 @@
                             </ul>
                         </div>
                         <div class="card-footer">
-                            <form action="/folders/<%=folder._id%>/records/<%=record._id%>/comments" method="POST" class="mb-3">
+                            <form action="/folders/<%=record.folder._id%>/records/<%=record._id%>/comments" method="POST" class="mb-3">
                                 <div class="mb-3">
                                     <label class="form-label" for="body">Leave a Comment</label>
                                     <textarea class="form-control" name="comment[body]" id="body" cols="30" rows="2" required></textarea>
@@ -84,7 +84,7 @@
                                     <%=comment.body%>
                                         <br>
                                         <% if (currentUser && comment.author._id.equals(currentUser._id)) { %>
-                                            <form action="/folders/<%=folder._id%>/records/<%=record._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                            <form action="/folders/<%=record.folder._id%>/records/<%=record._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
                                                 <button class="btn btn-outline-secondary btn-sm float-end d-inline">Delete</button>
                                             </form>
                                             <% } %>
@@ -94,7 +94,7 @@
                         </ul>
                     </div>
                     <footer class="mb-3">
-                        <a href="/folders/<%=folder._id%>">Go to Calendar</a>
+                        <a href="/folders/<%=record.folder._id%>">Go to Calendar</a>
                     </footer>
                 </div>
             </div>

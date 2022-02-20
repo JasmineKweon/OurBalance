@@ -19,10 +19,10 @@ async function getSpendingStatus(year, month, folderId) {
         path: 'members',
         select: 'username'
     });
-    const folderRecords = await Record.find({ folder: folderId }).populate('payer');
+    const folderRecords = await Record.find({ folder: folderId }).populate('payer').populate('category');
     const spendingStatus = new Map();
     for (member of folder.members) {
-        spendingStatus.set(member.username, sumPrice(folderRecords.filter(record => { return ((record.payer.equals(member)) && (record.date >= moment(startDate).format('yyyy-MM-DD')) && (record.date <= moment(endDate).format('yyyy-MM-DD'))) })));
+        spendingStatus.set(member.username, sumPrice(folderRecords.filter(record => { return ((record.payer.equals(member)) && (record.date >= moment(startDate).format('yyyy-MM-DD')) && (record.date <= moment(endDate).format('yyyy-MM-DD')) && (record.category.type === 'Spending')) })));
     }
     return spendingStatus;
 }

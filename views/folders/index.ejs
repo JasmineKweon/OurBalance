@@ -18,141 +18,138 @@
     </nav>
     <main class="container mt-5 mb-5">
         <%- include('../partials/flash') %>
-            <% if (currentUser && (currentUser._id.equals("621172637586459200cb0b99"))) { %>
-                <%- include('../partials/folderindex') %>
-                    <% } %>
-                        <div class="folder-list">
-                            <!--Invited Folder Lists-->
-                            <div class="my-folders mt-3 mb-5">
-                                <div class="folders-header row justify-content-between">
-                                    <div class="mb-3">
-                                        <h2 class="folders-title">Invited Folders</h2>
-                                    </div>
-                                    <%if (invitedFolders.length == 0) {%>
-                                        <h4 class="text-center text-muted mt-4">No Invitation</h4>
-                                        <%} %>
-                                </div>
-                                <div class="folders row">
-                                    <%for (folder of invitedFolders) {%>
-                                        <div class="folder col-sm-4">
-                                            <div class="card mb-5">
-                                                <div class="card-header">
-                                                    <%=folder.name%>
-                                                </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Members: </h5>
-                                                    <p class="card-text">
-                                                        <ul>
-                                                            <% for (member of folder.members) { %>
-                                                                <li>
-                                                                    <h6 class="text-muted">
-                                                                        <span><%=member.username%>
-                                                            <% if (member._id.equals(folder.admin)) { %>
-                                                                (admin)
-                                                                <% } %>
-                                                            </span>
-                                                                    </h6>
-                                                                </li>
-                                                                <% } %>
-                                                        </ul>
-                                                    </p>
-                                                </div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item income">Total Income: +¥
-                                                        <%=folder.totalIncome%>
-                                                    </li>
-                                                    <li class="list-group-item spending">Total Spending: -¥
-                                                        <%=folder.totalSpending%>
-                                                    </li>
-                                                    <li class="list-group-item">Total Balance:
-                                                        <%=folder.totalIncome - folder.totalSpending%>
-                                                    </li>
-                                                </ul>
-                                                <div class="card-body text-end">
-                                                    <form class="d-inline" action="/folders/<%=folder._id%>/members/accept" method="POST">
-                                                        <button class="card-link btn btn-outline-success">Accept</button>
-                                                    </form>
-                                                    <form class="d-inline" action="/folders/<%=folder._id%>/members/reject" method="POST">
-                                                        <button class="card-link btn btn-outline-danger">Reject</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <%} %>
-                                </div>
-                            </div>
-                            <hr>
-                            <!--Folder Lists-->
-                            <div class="my-folders mt-3 mb-5">
-                                <div class="folders-header row justify-content-between">
-                                    <div class="mb-3">
-                                        <h2 class="folders-title">My Folders <a href="/folders/new" class="btn btn-outline-dark float-end">Create New Folder</a></h2>
-                                    </div>
-                                    <%if (folders.length == 0) {%>
-                                        <h4 class="text-center text-muted mt-4">No Folders</h4>
-                                        <h6 class="text-center text-muted mb-5">Do you want to create a new folder? Click "Create New Folder" button. </h6>
-                                        <%} %>
-                                </div>
-                                <div class="folders row">
-                                    <%for (folder of folders) {%>
-                                        <div class="folder col-sm-4">
-                                            <div class="card mb-5">
-                                                <div class="card-header">
-                                                    <%=folder.name%>
-                                                </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Members: </h5>
-                                                    <p class="card-text">
-                                                        <ul>
-                                                            <% for (member of folder.members) { %>
-                                                                <li>
-                                                                    <h6 class="text-muted">
-                                                                        <span><%=member.username%>
-                                                            <% if (member._id.equals(folder.admin)) { %>
-                                                                (admin)
-                                                                <% } %>
-                                                            </span>
-                                                                    </h6>
-                                                                </li>
-                                                                <% } %>
-                                                        </ul>
-                                                    </p>
-                                                    <h5 class="card-title">Invited Users: </h5>
-                                                    <p class="card-text">
-                                                        <ul>
-                                                            <% for (user of folder.invitedUsers) { %>
-                                                                <li>
-                                                                    <h6 class="text-muted">
-                                                                        <span><%=user.username%></span>
-                                                                    </h6>
-                                                                </li>
-                                                                <% } %>
-                                                        </ul>
-                                                    </p>
-                                                </div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item income">Total Income: +¥
-                                                        <%=folder.totalIncome%>
-                                                    </li>
-                                                    <li class="list-group-item spending">Total Spending: -¥
-                                                        <%=folder.totalSpending%>
-                                                    </li>
-                                                    <li class="list-group-item">Total Balance:
-                                                        <%=folder.totalIncome - folder.totalSpending%>
-                                                    </li>
-                                                </ul>
-                                                <div class="card-body text-end">
-                                                    <a href="/folders/<%=folder._id%>" class="btn btn-outline-dark">See Details</a>
-                                                    <% if (currentUser && (folder.admin.equals(currentUser._id))) { %>
-                                                        <form class="d-inline" action="/folders/<%=folder._id%>?_method=DELETE" method="POST">
-                                                            <button class="card-link btn btn-outline-danger">DELETE</button>
-                                                        </form>
-                                                        <% } %>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <%} %>
-                                </div>
-                            </div>
+            <div class="folder-list">
+                <!--Invited Folder Lists-->
+                <div class="my-folders mt-3 mb-5">
+                    <div class="folders-header row justify-content-between">
+                        <div class="mb-3">
+                            <h2 class="folders-title">Invited Folders</h2>
                         </div>
+                        <%if (invitedFolders.length == 0) {%>
+                            <h4 class="text-center text-muted mt-4">No Invitation</h4>
+                            <%} %>
+                    </div>
+                    <div class="folders row">
+                        <%for (folder of invitedFolders) {%>
+                            <div class="folder col-sm-4">
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <%=folder.name%>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Members: </h5>
+                                        <p class="card-text">
+                                            <ul>
+                                                <% for (member of folder.members) { %>
+                                                    <li>
+                                                        <h6 class="text-muted">
+                                                            <span><%=member.username%>
+                                                            <% if (member._id.equals(folder.admin)) { %>
+                                                                (admin)
+                                                                <% } %>
+                                                            </span>
+                                                        </h6>
+                                                    </li>
+                                                    <% } %>
+                                            </ul>
+                                        </p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item income">Total Income: +¥
+                                            <%=folder.totalIncome%>
+                                        </li>
+                                        <li class="list-group-item spending">Total Spending: -¥
+                                            <%=folder.totalSpending%>
+                                        </li>
+                                        <li class="list-group-item">Total Balance:
+                                            <%=folder.totalIncome - folder.totalSpending%>
+                                        </li>
+                                    </ul>
+                                    <div class="card-body text-end">
+                                        <form class="d-inline" action="/folders/<%=folder._id%>/members/accept" method="POST">
+                                            <button class="card-link btn btn-outline-success">Accept</button>
+                                        </form>
+                                        <form class="d-inline" action="/folders/<%=folder._id%>/members/reject" method="POST">
+                                            <button class="card-link btn btn-outline-danger">Reject</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <%} %>
+                    </div>
+                </div>
+                <hr>
+                <!--Folder Lists-->
+                <div class="my-folders mt-3 mb-5">
+                    <div class="folders-header row justify-content-between">
+                        <div class="mb-3">
+                            <h2 class="folders-title">My Folders <a href="/folders/new" class="btn btn-outline-dark float-end">Create New Folder</a></h2>
+                        </div>
+                        <%if (folders.length == 0) {%>
+                            <h4 class="text-center text-muted mt-4">No Folders</h4>
+                            <h6 class="text-center text-muted mb-5">Do you want to create a new folder? Click "Create New Folder" button. </h6>
+                            <%} %>
+                    </div>
+                    <div class="folders row">
+                        <%for (folder of folders) {%>
+                            <div class="folder col-sm-4">
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <%=folder.name%>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Members: </h5>
+                                        <p class="card-text">
+                                            <ul>
+                                                <% for (member of folder.members) { %>
+                                                    <li>
+                                                        <h6 class="text-muted">
+                                                            <span><%=member.username%>
+                                                            <% if (member._id.equals(folder.admin)) { %>
+                                                                (admin)
+                                                                <% } %>
+                                                            </span>
+                                                        </h6>
+                                                    </li>
+                                                    <% } %>
+                                            </ul>
+                                        </p>
+                                        <h5 class="card-title">Invited Users: </h5>
+                                        <p class="card-text">
+                                            <ul>
+                                                <% for (user of folder.invitedUsers) { %>
+                                                    <li>
+                                                        <h6 class="text-muted">
+                                                            <span><%=user.username%></span>
+                                                        </h6>
+                                                    </li>
+                                                    <% } %>
+                                            </ul>
+                                        </p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item income">Total Income: +¥
+                                            <%=folder.totalIncome%>
+                                        </li>
+                                        <li class="list-group-item spending">Total Spending: -¥
+                                            <%=folder.totalSpending%>
+                                        </li>
+                                        <li class="list-group-item">Total Balance:
+                                            <%=folder.totalIncome - folder.totalSpending%>
+                                        </li>
+                                    </ul>
+                                    <div class="card-body text-end">
+                                        <a href="/folders/<%=folder._id%>" class="btn btn-outline-dark">See Details</a>
+                                        <% if (currentUser && (folder.admin.equals(currentUser._id))) { %>
+                                            <form class="d-inline" action="/folders/<%=folder._id%>?_method=DELETE" method="POST">
+                                                <button class="card-link btn btn-outline-danger">DELETE</button>
+                                            </form>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <%} %>
+                    </div>
+                </div>
+            </div>
     </main>

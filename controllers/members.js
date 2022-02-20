@@ -2,7 +2,6 @@ const Folder = require('../models/folder');
 const User = require('../models/user');
 
 module.exports.addInvitedUser = async(req, res) => {
-    console.log('add invited user route!')
     const { folderId } = req.params;
     const folder = await Folder.findById(folderId);
     const user = await User.findOne({ email: req.body.email });
