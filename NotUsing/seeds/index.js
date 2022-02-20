@@ -3,10 +3,10 @@ main().catch(err => console.log(err));
 async function main() {
     await mongoose.connect('mongodb://localhost:27017/money-record');
 }
-const Record = require('../models/record');
-const Comment = require('../models/comment');
-const Folder = require('../models/folder');
-const Category = require('../models/category');
+const Record = require('../../models/record');
+const Comment = require('../../models/comment');
+const Folder = require('../../models/folder');
+const Category = require('../../models/category');
 
 const categories = require('./categories');
 

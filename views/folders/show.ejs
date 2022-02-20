@@ -20,237 +20,237 @@
     </nav>
     <main class="container mt-5 mb-5">
         <%- include('../partials/flash') %>
-            <div class="row justify-content-evenly align-items-center mb-5">
-                <!-- Calendar-->
-                <div class="calendar col-6">
-                    <div class="mb-4">
-                        <div class="header">
-                            <div class="year-month">
-                                <%=year%>/
-                                    <%=month%>
-                            </div>
-                            <div class="nav">
-                                <a href="/folders/<%=folder._id%>?year=<%=year%>&month=<%=month-1%>" class="btn nav-btn go-next">&lt;</a>
-                                <a href="/folders/<%=folder._id%>?year=<%=new Date().getFullYear()%>&month=<%=new Date().getMonth() + 1%>" class="btn nav-btn go-today">Today</a>
-                                <a href="/folders/<%=folder._id%>?year=<%=year%>&month=<%=month+1%>" class="btn nav-btn go-next">&gt;</a>
-                            </div>
-                        </div>
-                        <div class="main mb-4">
-                            <div class="days">
-                                <div class="day">Sun</div>
-                                <div class="day">Mon</div>
-                                <div class="day">Tue</div>
-                                <div class="day">Wed</div>
-                                <div class="day">Thur</div>
-                                <div class="day">Fri</div>
-                                <div class="day">Sat</div>
-                            </div>
-                            <div class="dates">
-                                <%for(date of dates){%>
-                                    <div class="date <%= month !== date.date.getMonth() + 1 ? 'other': '' %>">
-                                        <button id="submit" type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#indexModal<%=date.index%>"><%=date.date.getDate()%></button>
-                                        <div class="money">
-                                            <% if (date.totalIncome != null && date.totalIncome !== 0) { %>
-                                                <span class="income">+ ¥<%=date.totalIncome%></span><br>
-                                                <% } %>
-                                                    <% if (date.totalSpending != null && date.totalSpending !== 0) { %>
-                                                        <span class="spending">- ¥<%=date.totalSpending%></span>
-                                                        <% } %>
+            <% if (currentUser && (currentUser._id.equals("621172637586459200cb0b99"))) { %>
+                <%- include('../partials/foldershow') %>
+                    <% } %>
+                        <div class="row justify-content-evenly align-items-center mb-5">
+                            <!-- Calendar-->
+                            <div class="calendar col-6">
+                                <div class="mb-4">
+                                    <div class="header">
+                                        <div class="year-month">
+                                            <%=year%>/
+                                                <%=month%>
+                                        </div>
+                                        <div class="nav">
+                                            <a href="/folders/<%=folder._id%>?year=<%=year%>&month=<%=month-1%>" class="btn nav-btn go-next">&lt;</a>
+                                            <a href="/folders/<%=folder._id%>?year=<%=new Date().getFullYear()%>&month=<%=new Date().getMonth() + 1%>" class="btn nav-btn go-today">Today</a>
+                                            <a href="/folders/<%=folder._id%>?year=<%=year%>&month=<%=month+1%>" class="btn nav-btn go-next">&gt;</a>
                                         </div>
                                     </div>
-                                    <!--Modal for Records-->
-                                    <div class="modal fade" id="indexModal<%=date.index%>" tabindex="-1" aria-labelledby="indexModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="indexModalLabel">
-                                                        <%= moment(date.date).format('yyyy-MM-DD')%>
-                                                    </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div class="main mb-4">
+                                        <div class="days">
+                                            <div class="day">Sun</div>
+                                            <div class="day">Mon</div>
+                                            <div class="day">Tue</div>
+                                            <div class="day">Wed</div>
+                                            <div class="day">Thur</div>
+                                            <div class="day">Fri</div>
+                                            <div class="day">Sat</div>
+                                        </div>
+                                        <div class="dates">
+                                            <%for(date of dates){%>
+                                                <div class="date <%= month !== date.date.getMonth() + 1 ? 'other': '' %>">
+                                                    <button id="submit" type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#indexModal<%=date.index%>"><%=date.date.getDate()%></button>
+                                                    <div class="money">
+                                                        <% if (date.totalIncome != null && date.totalIncome !== 0) { %>
+                                                            <span class="income">+ ¥<%=date.totalIncome%></span><br>
+                                                            <% } %>
+                                                                <% if (date.totalSpending != null && date.totalSpending !== 0) { %>
+                                                                    <span class="spending">- ¥<%=date.totalSpending%></span>
+                                                                    <% } %>
+                                                    </div>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <br>
-                                                    <%for(record of date.records){%>
-                                                        <div>
-                                                            <div class="row justify-content-between">
-                                                                <div class="modal-description col-5">
-                                                                    <a href="/folders/<%=folder._id%>/records/<%=record._id %>" class="tooltip-test" title="Tooltip">
-                                                                        <h5>
-                                                                            <%=record.description%>
-                                                                        </h5>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="modal-price col-5">
-                                                                    <% if ((record.category.type) === "Income") { %>
-                                                                        <h5><span class="income float-end">+ ¥<%=record.price%></span></h5>
-                                                                        <%} else {%>
-                                                                            <h5><span class="spending float-end">- ¥<%=record.price%></span></h5>
-                                                                            <%}%>
-                                                                </div>
+                                                <!--Modal for Records-->
+                                                <div class="modal fade" id="indexModal<%=date.index%>" tabindex="-1" aria-labelledby="indexModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="indexModalLabel">
+                                                                    <%= moment(date.date).format('yyyy-MM-DD')%>
+                                                                </h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <h6>Payer:
-                                                                <%=record.payer.username%>
-                                                            </h6>
-                                                            <h6>Category:
-                                                                <%=record.category.name%>
-                                                            </h6>
+                                                            <div class="modal-body">
+                                                                <br>
+                                                                <%for(record of date.records){%>
+                                                                    <div>
+                                                                        <div class="row justify-content-between">
+                                                                            <div class="modal-description col-5">
+                                                                                <a href="/folders/<%=folder._id%>/records/<%=record._id %>" class="tooltip-test" title="Tooltip">
+                                                                                    <h5>
+                                                                                        <%=record.description%>
+                                                                                    </h5>
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="modal-price col-5">
+                                                                                <% if ((record.category.type) === "Income") { %>
+                                                                                    <h5><span class="income float-end">+ ¥<%=record.price%></span></h5>
+                                                                                    <%} else {%>
+                                                                                        <h5><span class="spending float-end">- ¥<%=record.price%></span></h5>
+                                                                                        <%}%>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h6>Payer:
+                                                                            <%=record.payer.username%>
+                                                                        </h6>
+                                                                        <h6>Category:
+                                                                            <%=record.category.name%>
+                                                                        </h6>
+                                                                    </div>
+                                                                    <br>
+                                                                    <%}%>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                                                <a href="/folders/<%=folder._id%>/records/new/Spending?date=<%= moment(date.date).format('yyyy-MM-DD')%>" class="btn btn-primary">Add New</a>
+                                                            </div>
                                                         </div>
-                                                        <br>
-                                                        <%}%>
+                                                    </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-                                                    <a href="/folders/<%=folder._id%>/records/new/Spending?date=<%= moment(date.date).format('yyyy-MM-DD')%>" class="btn btn-primary">Add New</a>
-                                                </div>
-                                            </div>
+                                                <%}%>
                                         </div>
                                     </div>
-                                    <%}%>
+                                    <div class="footer">
+                                        <a href="/folders">Go to Folders</a>
+                                        <div class="float-end">
+                                            <a href="/folders/<%=folder._id%>/records/new/Spending" class="btn btn-success">New Record</a>
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Edit Members
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteMember">Invite Member</button></li>
+                                                <% if (currentUser && (folder.admin._id.equals(currentUser._id))) { %>
+                                                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteMember">Delete Memeber</button></li>
+                                                    <% } %>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="footer">
-                            <a href="/folders">Go to Folders</a>
-                            <div class="float-end">
-                                <a href="/folders/<%=folder._id%>/records/new/Spending" class="btn btn-success">New Record</a>
-
-                                <% if (currentUser && (folder.admin._id.equals(currentUser._id))) { %>
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Edit Members
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                        <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#inviteMember">Invite Member</button></li>
-                                        <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteMember">Delete Memeber</button></li>
-                                    </ul>
-                                    <% } else { %>
-                                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#inviteMember">Invite Member</button>
-                                        <% } %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Summary-->
-                <div class=" summary col-4 ">
-                    <div class="card mt-5 mb-5 ">
-                        <div class="card-header text-primary ">
-                            Monthly Summary
-                        </div>
-                        <ul class="list-group list-group-flush ">
-                            <li class="list-group-item ">
-                                <h6 class="text-muted ">
-                                    <span>Monthly Income</span>
-                                    <span class="income float-end ">+¥<%= monthlyIncome %></span>
-                                </h6>
-                            </li>
-                            <li class="list-group-item ">
-                                <h6 class="text-muted ">
-                                    <span>Monthly Spending</span>
-                                    <span class="spending float-end ">-¥<%= monthlySpending %></span>
-                                </h6>
-                            </li>
-                            <li class="list-group-item ">
-                                <h6 class="text-muted ">
-                                    <span>Monthly Balance</span>
-                                    <span class="float-end ">¥<%= monthlyIncome - monthlySpending %></span>
-                                </h6>
-                            </li>
-                        </ul>
-                        <div class="card-header text-primary ">
-                            Total Summary
-                        </div>
-                        <ul class="list-group list-group-flush ">
-                            <li class="list-group-item ">
-                                <h6 class="text-muted ">
-                                    <span>Total Income</span>
-                                    <span class="income float-end ">+¥<%=folder.totalIncome%></span>
-                                </h6>
-                            </li>
-                            <li class="list-group-item ">
-                                <h6 class="text-muted ">
-                                    <span>Total Spending</span>
-                                    <span class="spending float-end ">-¥<%=folder.totalSpending%></span>
-                                </h6>
-                            </li>
-                            <li class="list-group-item ">
-                                <h6 class="text-muted ">
-                                    <span>Total Balance</span>
-                                    <span class="float-end "><%=folder.totalIncome - folder.totalSpending%></span>
-                                </h6>
-                            </li>
-                        </ul>
-                        <div class="card-header text-primary ">
-                            Spending Status
-                        </div>
-                        <ul class="list-group list-group-flush ">
-                            <%for (let [key, value] of spendingStatus) {%>
-                                <li class="list-group-item ">
-                                    <h6 class="text-muted ">
-                                        <span><%=key%> spent:</span>
-                                        <span class="float-end ">¥<%=value%></span>
-                                    </h6>
-                                </li>
-                                <% }%>
-                        </ul>
-                        <div class="card-header text-primary ">
-                            How much owe?
-                        </div>
-                        <ul class="list-group list-group-flush ">
-                            <%for (let [key, value] of spendingStatus) {%>
-                                <%if (parseInt(monthlySpending / spendingStatus.size) < value) { %>
-                                    <li class="list-group-item ">
-                                        <h6 class="text-muted float-end">
-                                            <span><%=key%> needs to receive: ¥<%=value-parseInt(monthlySpending / spendingStatus.size)%></span>
-                                        </h6>
-                                    </li>
-                                    <% } else if (parseInt(monthlySpending / spendingStatus.size) > value) { %>
+                            <!--Summary-->
+                            <div class=" summary col-4 ">
+                                <div class="card mt-5 mb-5 ">
+                                    <div class="card-header text-primary ">
+                                        Monthly Summary
+                                    </div>
+                                    <ul class="list-group list-group-flush ">
                                         <li class="list-group-item ">
-                                            <h6 class="text-muted float-end">
-                                                <span><%=key%> needs to pay: ¥<%=parseInt(monthlySpending / spendingStatus.size)-value%></span>
+                                            <h6 class="text-muted ">
+                                                <span>Monthly Income</span>
+                                                <span class="income float-end ">+¥<%= monthlyIncome %></span>
                                             </h6>
                                         </li>
-                                        <% }%>
+                                        <li class="list-group-item ">
+                                            <h6 class="text-muted ">
+                                                <span>Monthly Spending</span>
+                                                <span class="spending float-end ">-¥<%= monthlySpending %></span>
+                                            </h6>
+                                        </li>
+                                        <li class="list-group-item ">
+                                            <h6 class="text-muted ">
+                                                <span>Monthly Balance</span>
+                                                <span class="float-end ">¥<%= monthlyIncome - monthlySpending %></span>
+                                            </h6>
+                                        </li>
+                                    </ul>
+                                    <div class="card-header text-primary ">
+                                        Total Summary
+                                    </div>
+                                    <ul class="list-group list-group-flush ">
+                                        <li class="list-group-item ">
+                                            <h6 class="text-muted ">
+                                                <span>Total Income</span>
+                                                <span class="income float-end ">+¥<%=folder.totalIncome%></span>
+                                            </h6>
+                                        </li>
+                                        <li class="list-group-item ">
+                                            <h6 class="text-muted ">
+                                                <span>Total Spending</span>
+                                                <span class="spending float-end ">-¥<%=folder.totalSpending%></span>
+                                            </h6>
+                                        </li>
+                                        <li class="list-group-item ">
+                                            <h6 class="text-muted ">
+                                                <span>Total Balance</span>
+                                                <span class="float-end "><%=folder.totalIncome - folder.totalSpending%></span>
+                                            </h6>
+                                        </li>
+                                    </ul>
+                                    <div class="card-header text-primary ">
+                                        Spending Status
+                                    </div>
+                                    <ul class="list-group list-group-flush ">
+                                        <%for (let [key, value] of spendingStatus) {%>
+                                            <li class="list-group-item ">
+                                                <h6 class="text-muted ">
+                                                    <span><%=key%> spent:</span>
+                                                    <span class="float-end ">¥<%=value%></span>
+                                                </h6>
+                                            </li>
                                             <% }%>
-                        </ul>
-                    </div>
-                </div>
-                <!--Modal for Invite Member-->
-                <div class="modal fade" id="inviteMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Invite Member</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </ul>
+                                    <div class="card-header text-primary ">
+                                        How much owe?
+                                    </div>
+                                    <ul class="list-group list-group-flush ">
+                                        <%for (let [key, value] of spendingStatus) {%>
+                                            <%if (parseInt(monthlySpending / spendingStatus.size) < value) { %>
+                                                <li class="list-group-item ">
+                                                    <h6 class="text-muted float-end">
+                                                        <span><%=key%> needs to receive: ¥<%=value-parseInt(monthlySpending / spendingStatus.size)%></span>
+                                                    </h6>
+                                                </li>
+                                                <% } else if (parseInt(monthlySpending / spendingStatus.size) > value) { %>
+                                                    <li class="list-group-item ">
+                                                        <h6 class="text-muted float-end">
+                                                            <span><%=key%> needs to pay: ¥<%=parseInt(monthlySpending / spendingStatus.size)-value%></span>
+                                                        </h6>
+                                                    </li>
+                                                    <% }%>
+                                                        <% }%>
+                                    </ul>
+                                </div>
                             </div>
-                            <form action="/folders/<%=folder._id%>/members/invite" method="POST">
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="email" class="col-form-label">User's Email:</label>
-                                        <input type="email" class="form-control" id="email" name="email">
+                            <!--Modal for Invite Member-->
+                            <div class="modal fade" id="inviteMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Invite Member</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="/folders/<%=folder._id%>/members/invite" method="POST">
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="email" class="col-form-label">User's Email:</label>
+                                                    <input type="email" class="form-control" id="email" name="email" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Invite</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Invite</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!--Modal for Delete Memeber-->
-                <div class="modal fade" id="deleteMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Delete Member</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form action="/folders/<%=folder._id%>/members/delete" method="POST">
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <% if (folder.members.length === 1) { %>
-                                            No Members
-                                            <% } else {%>
-                                                <label class="col-form-label" for="user">Choose User:</label>
-                                                <select class="form-select" aria-label="Default select" name="user" id="user" required>
+                            <!--Modal for Delete Memeber-->
+                            <div class="modal fade" id="deleteMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete Member</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="/folders/<%=folder._id%>/members/delete" method="POST">
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <% if (folder.members.length === 1) { %>
+                                                        No Members
+                                                        <% } else {%>
+                                                            <label class="col-form-label" for="user">Choose User:</label>
+                                                            <select class="form-select" aria-label="Default select" name="user" id="user" required>
                                         <% for(let member of folder.members) {%>
                                             <% if(!member._id.equals(folder.admin._id)){ %>
                                             <option value="<%=member._id%>"><%=member.username%></option>
@@ -258,15 +258,15 @@
                                         <% } %>
                                         <% } %>
                                         </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Delete</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Delete</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
     </main>
