@@ -116,7 +116,8 @@ module.exports.showCalendar = async(req, res) => {
         const today = new Date();
         year = today.getFullYear();
         month = today.getMonth() + 1;
-        if (res.locals.successMsg && res.locals.successMsg.length) req.flash('success', res.locals.successMsg);
+        if (res.locals.success && res.locals.success.length) req.flash('success', res.locals.success);
+        if (res.locals.error && res.locals.error.length) req.flash('error', res.locals.error);
         return res.redirect(`/folders/${folderId}?year=${year}&month=${month}`)
     }
     monthlySpending = 0;

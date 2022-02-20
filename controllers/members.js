@@ -2,17 +2,22 @@ const Folder = require('../models/folder');
 const User = require('../models/user');
 
 module.exports.addInvitedUser = async(req, res) => {
+    console.log('add invited user route!')
     const { folderId } = req.params;
     const folder = await Folder.findById(folderId);
     const user = await User.findOne({ email: req.body.email });
     if (user == null) {
-        req.flash('success', 'There is no user') //Fix !
+        // console.log('user is null')
+        //req.flash('error', 'There is no user') //Fix !
+        req.flash('error', 'There is no user') //Fix !
         return res.redirect(`/folders/${folderId}`);
     } else if (folder.invitedUsers.includes(user._id)) {
-        req.flash('success', 'The user is already invited') //Fix !
+        // console.log('invited user already invited');
+        req.flash('error', 'The user is already invited') //Fix !
         return res.redirect(`/folders/${folderId}`);
     } else if (folder.members.includes(user._id)) {
-        req.flash('success', 'The user is already a member') //Fix !
+        // console.log('invited user already member');
+        req.flash('error', 'The user is already a member') //Fix !
         return res.redirect(`/folders/${folderId}`);
     }
     folder.invitedUsers.push(user);
