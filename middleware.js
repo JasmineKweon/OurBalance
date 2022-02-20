@@ -1,5 +1,7 @@
 const Record = require('./models/record');
 const Folder = require('./models/folder');
+const { recordSchema, commentSchema } = require('./schemas.js');
+const AppError = require('./utils/AppError');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -33,4 +35,26 @@ module.exports.hasFolderAccessRight = async(req, res, next) => {
         return res.redirect(`/folders`)
     }
     next();
+}
+
+module.exports.validateRecord = (req, res, next) => {
+    const { error } = recordSchema.validate(req.body);
+    console.log(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new AppError(msg, 400)
+    } else {
+        next();
+    }
+}
+
+module.exports.validateComment = (req, res, next) => {
+    const { error } = commentSchema.validate(req.body);
+    console.log(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new AppError(msg, 400)
+    } else {
+        next();
+    }
 }

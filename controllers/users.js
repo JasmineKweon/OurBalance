@@ -19,6 +19,7 @@ module.exports.register = async(req, res) => {
             res.redirect('/folders');
         })
     } catch (e) {
+        req.flash('error', e.message);
         res.redirect('/register');
     }
 }
@@ -30,5 +31,6 @@ module.exports.login = (req, res) => {
 
 module.exports.logout = (req, res) => {
     req.logout();
+    req.flash('success', "Successfully logged out");
     res.redirect('/');
 }
